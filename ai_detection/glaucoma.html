@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>青光眼 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <div class="header">
+            <div class="header-left">
+                <span>青光眼</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link active">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="disease-info">
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level high">高风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>建议及时就医</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>发现症状后尽快</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是青光眼？</h2>
+                        <p>青光眼是一种进行性视神经病变，通常与眼压升高有关。如果不及时治疗，可能导致视神经损害甚至不可逆的失明。它是全球第二大致盲性眼病，早期诊断和治疗对预防视力损失至关重要。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>进行性视神经病变</li>
+                                <li>眼压异常升高</li>
+                                <li>视野缺损进行性加重</li>
+                                <li>视神经萎缩</li>
+                            </ul>
+                        </div>
+
+                        <div class="disease-types">
+                            <h3><i class="fas fa-list-ul"></i> 青光眼分类</h3>
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-angle-double-right"></i>
+                                        <h4>原发性开角型青光眼</h4>
+                                    </div>
+                                    <p>最常见类型，房角开放但房水外流受阻，眼压缓慢升高</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-angle-double-left"></i>
+                                        <h4>原发性闭角型青光眼</h4>
+                                    </div>
+                                    <p>房角关闭导致房水排出受阻，可能出现急性发作</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-child"></i>
+                                        <h4>先天性青光眼</h4>
+                                    </div>
+                                    <p>出生时即存在，房角发育异常导致房水引流障碍</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-notes-medical"></i>
+                                        <h4>继发性青光眼</h4>
+                                    </div>
+                                    <p>由其他眼病、外伤或用药等因素导致</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3><i class="fas fa-image"></i> 图示说明：</h3>
+                            <div class="disease-images">
+                                <div class="disease-image">
+                                    <div class="image-title">图1：青光眼发病机制示意图</div>
+                                    <img src="image/details/glaucoma/mechanism.png" alt="青光眼发病机制">
+                                    <div class="image-desc">上图展示了青光眼的发病机制</div>
+                                </div>
+                                <div class="disease-image">
+                                    <div class="image-title">图2：正常眼睛与青光眼对比图</div>
+                                    <img src="image/details/glaucoma/compare.png" alt="正常眼睛与青光眼对比">
+                                    <div class="image-desc">上图展示了正常眼睛与青光眼的对比</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 视觉症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-binoculars"></i>
+                                        <h4>视野缺损</h4>
+                                        <p>从周边视野开始逐渐缺损</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-low-vision"></i>
+                                        <h4>视力下降</h4>
+                                        <p>晚期可出现显著视力下降</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-rainbow"></i>
+                                        <h4>虹视</h4>
+                                        <p>看到彩虹样光环</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-adjust"></i>
+                                        <h4>暗适应障碍</h4>
+                                        <p>光线暗处视物困难</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-heartbeat"></i> 急性发作症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-bolt"></i>
+                                        <h4>眼痛</h4>
+                                        <p>剧烈疼痛，可伴有头痛</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-dizzy"></i>
+                                        <h4>恶心呕吐</h4>
+                                        <p>可伴有自主神经症状</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-eye-slash"></i>
+                                        <h4>视物模糊</h4>
+                                        <p>突然视力显著下降</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-cloud"></i>
+                                        <h4>角膜水肿</h4>
+                                        <p>角膜混浊，视物不清</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-calendar-alt"></i> 疾病进展</h3>
+                                <div class="progress-timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>早期</h4>
+                                            <p>眼压升高，可能无明显症状</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>中期</h4>
+                                            <p>视野缺损扩大，视神经损害加重</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>晚期</h4>
+                                            <p>视野严重缺损，视力显著下降</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 治疗方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-pills"></i>
+                                    <h3>药物治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>β受体阻滞剂眼药水</li>
+                                        <li>前列腺素类药物</li>
+                                        <li>碳酸酐酶抑制剂</li>
+                                        <li>α2-肾上腺素受体激动剂</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-laser"></i>
+                                    <h3>激光治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>激光周边虹膜切除术</li>
+                                        <li>选择性激光小梁成形术</li>
+                                        <li>激光睫状体光凝术</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-hospital-user"></i>
+                                    <h3>手术治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>小梁切除术</li>
+                                        <li>青光眼引流阀植入</li>
+                                        <li>非穿透性小梁手术</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-shield-alt"></i> 预防建议</h2>
+                        <div class="prevention-tips">
+                            <div class="tip">
+                                <i class="fas fa-calendar-check"></i>
+                                <h4>定期检查</h4>
+                                <p>建议40岁以上每年进行眼科检查</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-heartbeat"></i>
+                                <h4>控制基础疾病</h4>
+                                <p>及时控制高血压、糖尿病等</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-running"></i>
+                                <h4>保持运动</h4>
+                                <p>适度运动有助于控制眼压</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-eye"></i>
+                                <h4>用眼卫生</h4>
+                                <p>避免长时间用眼，注意休息</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-hospital"></i> 推荐医院</h2>
+                        <div class="hospital-list">
+                            <div class="hospital-card">
+                                <h3>北京同仁医院</h3>
+                                <div class="hospital-info">
+                                    <p><i class="fas fa-map-marker-alt"></i> 北京市东城区东交民巷1号</p>
+                                    <p><i class="fas fa-phone"></i> 010-58266699</p>
+                                    <div class="rating">
+                                        <span>专科评分：</span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 可以添加更多医院 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 新增右侧建议栏 -->
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="advice-content">
+                                <h4>定时测量眼压</h4>
+                                <p>建议每3个月进行一次眼压检查</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-moon"></i>
+                            <div class="advice-content">
+                                <h4>保证睡眠质量</h4>
+                                <p>每天保持7-8小时充足睡眠</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-smoking-ban"></i>
+                            <div class="advice-content">
+                                <h4>戒烟限酒</h4>
+                                <p>避免吸烟饮酒，保护视神经</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-apple-alt"></i>
+                            <div class="advice-content">
+                                <h4>健康饮食</h4>
+                                <p>多食用富含维生素A、C的食物</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免剧烈运动和重体力活动</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免长时间低头或俯卧位</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免在黑暗环境下看书或用眼</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 可以添加交互效果的JavaScript代码
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

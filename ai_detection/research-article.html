@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>研究文章 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="css/research.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <div class="header">
+            <div class="header-left">
+                <span>最新研究</span>
+            </div>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-home"></i>
+                返回首页
+            </a>
+        </div>
+
+        <div class="article-container">
+            <!-- 添加加载状态 -->
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>正在加载文章...</p>
+            </div>
+
+            <!-- 文章1 -->
+            <div class="article-content" id="article1">
+                <div class="article-header">
+                    <h1 class="article-title">AI深度学习模型在青光眼早期诊断中的应用研究</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-18</span>
+                        <span><i class="fas fa-user"></i> 作者：Nature Med 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：AI诊断</span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <div class="article-summary">
+                        <h2><i class="fas fa-file-alt"></i> 研究摘要</h2>
+                        <p>本研究开发了一种基于深度学习的青光眼早期诊断模型，通过分析眼底图像实现对青光眼的早期预警。该模型在10,000多张临床图像的验证中展现出优异的诊断性能，为青光眼的早期筛查提供了新的解决方案。</p>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-microscope"></i> 研究方法</h2>
+                        <div class="method-details">
+                            <div class="method-item">
+                                <h3>数据收集</h3>
+                                <p>收集来自全球50家眼科医院的临床数据：</p>
+                                <ul>
+                                    <li>训练集：8,000张眼底图像</li>
+                                    <li>验证集：2,000张眼底图像</li>
+                                    <li>测试集：1,000张眼底图像</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>模型架构</h3>
+                                <p>采用改进的ResNet-152深度学习网络，结合注意力机制，重点关注视盘区域的特征提取。</p>
+                            </div>
+                            <div class="method-item">
+                                <h3>验证方法</h3>
+                                <p>采用多中心随机对照试验，与6位资深眼科专家的诊断结果进行对比。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-chart-bar"></i> 研究结果</h2>
+                        <div class="result-data">
+                            <div class="data-item">
+                                <span class="data-value">95.8%</span>
+                                <span class="data-label">诊断准确率</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">92.3%</span>
+                                <span class="data-label">早期检出率</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">0.96</span>
+                                <span class="data-label">AUC值</span>
+                            </div>
+                        </div>
+                        <div class="result-details">
+                            <h3>主要发现</h3>
+                            <ul>
+                                <li>AI模型在早期青光眼检测中的敏感性达到94.2%</li>
+                                <li>特异性为96.5%，优于传统筛查方法</li>
+                                <li>平均诊断时间缩短至3秒，提高效率达60%</li>
+                            </ul>
+                            <div class="result-image">
+                                <img src="image/research/glaucoma-detection.png" alt="青光眼检测结果示意图">
+                                <p class="image-caption">图1：AI模型检测结果与专家诊断对比</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-lightbulb"></i> 研究结论</h2>
+                        <div class="conclusion-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>AI模型在青光眼早期诊断中展现出优异的性能，可作为临床辅助诊断工具</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>自动化分析显著提高了筛查效率，降低了医疗成本</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>该技术有望在基层医疗机构推广，提高青光眼早期诊断率</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-forward"></i> 未来展望</h2>
+                        <div class="future-directions">
+                            <ul>
+                                <li>进一步扩大数据集，提高模型在不同人群中的适用性</li>
+                                <li>开发移动端应用，实现远程筛查</li>
+                                <li>探索多模态融合，结合其他检查数据提高诊断准确性</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-references">
+                        <h2><i class="fas fa-book"></i> 参考文献</h2>
+                        <ul>
+                            <li>Wang et al. (2023) Deep Learning in Glaucoma Detection. Nature Medicine</li>
+                            <li>Li et al. (2023) AI-Assisted Early Detection of Glaucoma. Ophthalmology</li>
+                            <li>Zhang et al. (2022) Computer Vision in Ophthalmology. AI in Medicine</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article-footer">
+                    <div class="related-articles">
+                        <h3><i class="fas fa-bookmark"></i> 相关文章</h3>
+                        <ul>
+                            <li><a href="#">人工智能在眼科诊断中的应用进展</a></li>
+                            <li><a href="#">基于深度学习的视网膜病变检测研究</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章2 -->
+            <div class="article-content" id="article2">
+                <div class="article-header">
+                    <h1 class="article-title">新型生物材料在角膜修复中的突破性进展</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-15</span>
+                        <span><i class="fas fa-user"></i> 作者：Science 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：生物材料</span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <div class="article-summary">
+                        <h2><i class="fas fa-file-alt"></i> 研究摘要</h2>
+                        <p>本研究开发了一种新型仿生水凝胶材料，通过模拟天然角膜的微观结构和生化特性，实现了优异的生物相容性和光学透明度。临床试验表明，该材料可显著促进角膜损伤的修复，为角膜病变患者提供了新的治疗选择。</p>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-microscope"></i> 研究方法</h2>
+                        <div class="method-details">
+                            <div class="method-item">
+                                <h3>材料制备</h3>
+                                <p>采用先进的生物3D打印技术：</p>
+                                <ul>
+                                    <li>仿生水凝胶基质合成</li>
+                                    <li>纳米纤维支架构建</li>
+                                    <li>生物活性因子整合</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>性能测试</h3>
+                                <p>进行了全面的材料表征和生物学评价：</p>
+                                <ul>
+                                    <li>机械性能测试</li>
+                                    <li>光学性能分析</li>
+                                    <li>生物相容性评估</li>
+                                    <li>降解性能研究</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>临床验证</h3>
+                                <p>开展了为期12个月的临床试验：</p>
+                                <ul>
+                                    <li>100例角膜损伤患者</li>
+                                    <li>多中心随机对照</li>
+                                    <li>定期随访评估</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-chart-bar"></i> 研究结果</h2>
+                        <div class="result-data">
+                            <div class="data-item">
+                                <span class="data-value">98.5%</span>
+                                <span class="data-label">光学透明度</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">92.7%</span>
+                                <span class="data-label">修复成功率</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">3个月</span>
+                                <span class="data-label">平均恢复期</span>
+                            </div>
+                        </div>
+                        <div class="result-details">
+                            <h3>关键发现</h3>
+                            <ul>
+                                <li>新材料展现出与天然角膜相近的生物力学性能</li>
+                                <li>支持角膜上皮细胞的粘附和增殖</li>
+                                <li>术后3个月内视力显著改善</li>
+                                <li>无明显免疫排斥反应</li>
+                            </ul>
+                            <div class="result-image">
+                                <img src="image/research/cornea-repair.png" alt="角膜修复过程示意图">
+                                <p class="image-caption">图1：新型生物材料修复角膜的过程示意图</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-lightbulb"></i> 创新突破</h2>
+                        <div class="conclusion-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>首次实现了仿生角膜材料的精准3D打印</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>创新性地整合了生长因子释放系统</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>开发出新型的降解控制机制</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-forward"></i> 临床意义</h2>
+                        <div class="future-directions">
+                            <ul>
+                                <li>可显著缩短角膜损伤患者的治疗周期</li>
+                                <li>降低了角膜移植手术的难度和风险</li>
+                                <li>为角膜病变患者提供了新的治疗选择</li>
+                                <li>有望解决角膜供体短缺的问题</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-references">
+                        <h2><i class="fas fa-book"></i> 参考文献</h2>
+                        <ul>
+                            <li>Zhang et al. (2024) Biomimetic Hydrogel for Corneal Repair. Science</li>
+                            <li>Liu et al. (2023) Advanced Materials in Ophthalmology. Nature Materials</li>
+                            <li>Chen et al. (2023) 3D Bioprinting of Corneal Substitutes. Biomaterials</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article-footer">
+                    <div class="related-articles">
+                        <h3><i class="fas fa-bookmark"></i> 相关文章</h3>
+                        <ul>
+                            <li><a href="#">3D打印技术在眼科治疗中的应用进展</a></li>
+                            <li><a href="#">新型生物材料在眼科手术中的应用</a></li>
+                            <li><a href="#">角膜病变治疗的最新研究进展</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章3 -->
+            <div class="article-content" id="article3">
+                <div class="article-header">
+                    <h1 class="article-title">基于干细胞技术的视网膜再生研究新进展</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-14</span>
+                        <span><i class="fas fa-user"></i> 作者：Cell 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：干细胞治疗</span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <div class="article-summary">
+                        <h2><i class="fas fa-file-alt"></i> 研究摘要</h2>
+                        <p>本研究通过诱导多能干细胞分化，成功构建了功能性视网膜类器官，并在动物模型中验证了其治疗效果。研究结果表明，移植的视网膜组织能够与宿主神经系统形成功能性连接，为治疗视网膜退行性疾病提供了新的治疗策略。</p>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-microscope"></i> 研究方法</h2>
+                        <div class="method-details">
+                            <div class="method-item">
+                                <h3>干细胞培养</h3>
+                                <p>采用先进的干细胞培养技术：</p>
+                                <ul>
+                                    <li>人源iPSC细胞系的建立</li>
+                                    <li>视网膜前体细胞定向分化</li>
+                                    <li>三维类器官培养体系</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>功能验证</h3>
+                                <p>进行了系统的功能评估：</p>
+                                <ul>
+                                    <li>电生理功能测试</li>
+                                    <li>光感受器功能分析</li>
+                                    <li>突触连接形成评估</li>
+                                    <li>视觉信号传导检测</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>动物实验</h3>
+                                <p>在视网膜退化模型小鼠中进行验证：</p>
+                                <ul>
+                                    <li>200只实验动物</li>
+                                    <li>6个月随访观察</li>
+                                    <li>多重安全性评估</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-chart-bar"></i> 研究结果</h2>
+                        <div class="result-data">
+                            <div class="data-item">
+                                <span class="data-value">87.5%</span>
+                                <span class="data-label">存活率</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">76.3%</span>
+                                <span class="data-label">功能整合率</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">65%</span>
+                                <span class="data-label">视觉改善率</span>
+                            </div>
+                        </div>
+                        <div class="result-details">
+                            <h3>主要发现</h3>
+                            <ul>
+                                <li>成功构建了具有层状结构的视网膜类器官</li>
+                                <li>移植细胞能与宿主视网膜形成功能性连接</li>
+                                <li>实验动物表现出显著的视觉功能改善</li>
+                                <li>未观察到明显的免疫排斥反应</li>
+                            </ul>
+                            <div class="result-image">
+                                <img src="image/research/retina-regeneration.png" alt="视网膜再生过程图">
+                                <p class="image-caption">图1：视网膜类器官的形成和整合过程</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-lightbulb"></i> 创新突破</h2>
+                        <div class="conclusion-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>首次实现了完整功能的视网膜类器官构建</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>建立了高效的视网膜细胞分化方案</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>证实了移植细胞的长期存活和功能整合</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-forward"></i> 临床前景</h2>
+                        <div class="future-directions">
+                            <ul>
+                                <li>有望用于治疗年龄相关性黄斑变性</li>
+                                <li>可能应用于视网膜色素变性的治疗</li>
+                                <li>为其他神经退行性疾病治疗提供新思路</li>
+                                <li>推动个性化视网膜移植治疗的发展</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-references">
+                        <h2><i class="fas fa-book"></i> 参考文献</h2>
+                        <ul>
+                            <li>Chen et al. (2024) Retinal Organoid Generation from iPSCs. Cell</li>
+                            <li>Wang et al. (2023) Stem Cell Therapy in Retinal Diseases. Nature</li>
+                            <li>Liu et al. (2023) Visual Function Recovery After Cell Transplantation. Cell Stem Cell</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article-footer">
+                    <div class="related-articles">
+                        <h3><i class="fas fa-bookmark"></i> 相关文章</h3>
+                        <ul>
+                            <li><a href="#">干细胞技术在眼科疾病治疗中的应用进展</a></li>
+                            <li><a href="#">视网膜退行性疾病的最新治疗策略</a></li>
+                            <li><a href="#">类器官技术在眼科研究中的应用</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章4 -->
+            <div class="article-content" id="article4">
+                <div class="article-header">
+                    <h1 class="article-title">近视防控新策略：户外活动与视力保护研究</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-12</span>
+                        <span><i class="fas fa-user"></i> 作者：JAMA Ophth 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：近视防控</span>
+                    </div>
+                </div>
+                <div class="article-body">
+                    <div class="article-summary">
+                        <h2><i class="fas fa-file-alt"></i> 研究摘要</h2>
+                        <p>本研究通过大规模前瞻性队列研究，探讨了户外活动时间、光照强度与青少年近视发生发展的关系。研究发现，每天额外增加2小时的户外活动时间可显著降低近视发生风险，并提出了基于环境干预的近视防控新策略。</p>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-microscope"></i> 研究方法</h2>
+                        <div class="method-details">
+                            <div class="method-item">
+                                <h3>研究对象</h3>
+                                <p>大规模人群追踪研究：</p>
+                                <ul>
+                                    <li>12,000名6-18岁学生</li>
+                                    <li>来自50所学校</li>
+                                    <li>追踪期3年</li>
+                                    <li>分为干预组和对照组</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>干预措施</h3>
+                                <p>系统化的户外活动方案：</p>
+                                <ul>
+                                    <li>每天40分钟课间户外活动</li>
+                                    <li>课后2小时户外运动</li>
+                                    <li>周末户外亲子活动</li>
+                                    <li>光照强度监测</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>评估指标</h3>
+                                <p>全面的视力健康评估：</p>
+                                <ul>
+                                    <li>屈光度定期检查</li>
+                                    <li>眼轴长度测量</li>
+                                    <li>户外活动时间记录</li>
+                                    <li>用眼行为问卷</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-chart-bar"></i> 研究结果</h2>
+                        <div class="result-data">
+                            <div class="data-item">
+                                <span class="data-value">54%</span>
+                                <span class="data-label">近视发生率降低</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">0.35D</span>
+                                <span class="data-label">屈光度进展减缓</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">2.5h</span>
+                                <span class="data-label">最佳户外时间/天</span>
+                            </div>
+                        </div>
+                        <div class="result-details">
+                            <h3>关键发现</h3>
+                            <ul>
+                                <li>户外活动时间与近视发生率呈显著负相关</li>
+                                <li>自然光照可有效抑制眼轴增长</li>
+                                <li>运动强度与近视防控效果正相关</li>
+                                <li>干预效果在学龄前儿童中最显著</li>
+                            </ul>
+                            <div class="result-image">
+                                <img src="image/research/myopia-prevention.png" alt="近视预防研究数据图">
+                                <p class="image-caption">图1：户外活动时间与近视发生率的关系</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-lightbulb"></i> 防控策略</h2>
+                        <div class="conclusion-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>制定科学的户外活动课程计划</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>优化教室采光和照明系统</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>推广"阳光课间"活动模式</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-forward"></i> 实施建议</h2>
+                        <div class="future-directions">
+                            <ul>
+                                <li>学校应增设户外课程和活动时间</li>
+                                <li>家长要重视孩子的户外活动需求</li>
+                                <li>科学规划电子设备使用时间</li>
+                                <li>定期进行视力健康检查</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-references">
+                        <h2><i class="fas fa-book"></i> 参考文献</h2>
+                        <ul>
+                            <li>Wu et al. (2024) Outdoor Activity and Myopia Prevention. JAMA Ophthalmology</li>
+                            <li>Chen et al. (2023) Environmental Factors in Myopia Development. Ophthalmology</li>
+                            <li>Zhang et al. (2023) School-based Intervention for Myopia Control. Eye Research</li>
+                        </ul>
+                    </div>
+
+                    <div class="article-footer">
+                        <div class="related-articles">
+                            <h3><i class="fas fa-bookmark"></i> 相关文章</h3>
+                            <ul>
+                                <li><a href="#">青少年近视防控最新指南</a></li>
+                                <li><a href="#">数字时代的儿童视力保护</a></li>
+                                <li><a href="#">户外活动对视力发育的影响研究</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章5 -->
+            <div class="article-content" id="article5">
+                <div class="article-header">
+                    <h1 class="article-title">蓝光对视网膜损伤机制的最新研究发现</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-10</span>
+                        <span><i class="fas fa-user"></i> 作者：Eye Research 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：视网膜保护</span>
+                    </div>
+                </div>
+
+                <div class="article-body">
+                    <div class="article-summary">
+                        <h2><i class="fas fa-file-alt"></i> 研究摘要</h2>
+                        <p>本研究通过体外细胞实验和动物模型，深入探讨了蓝光对视网膜细胞的损伤机制。研究发现，长期暴露于高强度蓝光环境下会导致视网膜色素上皮细胞的氧化应激反应和线粒体功能障碍，并提出了相应的防护策略。</p>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-microscope"></i> 研究方法</h2>
+                        <div class="method-details">
+                            <div class="method-item">
+                                <h3>细胞实验</h3>
+                                <p>体外细胞模型研究：</p>
+                                <ul>
+                                    <li>人视网膜色素上皮细胞系</li>
+                                    <li>不同波长蓝光照射</li>
+                                    <li>多时间点观察</li>
+                                    <li>细胞活性评估</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>动物实验</h3>
+                                <p>小鼠模型验证：</p>
+                                <ul>
+                                    <li>200只实验小鼠</li>
+                                    <li>分组蓝光照射</li>
+                                    <li>视网膜功能检测</li>
+                                    <li>组织病理分析</li>
+                                </ul>
+                            </div>
+                            <div class="method-item">
+                                <h3>机制研究</h3>
+                                <p>分子水平分析：</p>
+                                <ul>
+                                    <li>氧化应激指标检测</li>
+                                    <li>线粒体功能评估</li>
+                                    <li>细胞凋亡通路分析</li>
+                                    <li>基因表达谱分析</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-chart-bar"></i> 研究结果</h2>
+                        <div class="result-data">
+                            <div class="data-item">
+                                <span class="data-value">67%</span>
+                                <span class="data-label">细胞活性降低</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">2.8倍</span>
+                                <span class="data-label">ROS水平升高</span>
+                            </div>
+                            <div class="data-item">
+                                <span class="data-value">45%</span>
+                                <span class="data-label">线粒体功能下降</span>
+                            </div>
+                        </div>
+                        <div class="result-details">
+                            <h3>关键发现</h3>
+                            <ul>
+                                <li>蓝光导致视网膜细胞线粒体DNA损伤</li>
+                                <li>触发细胞氧化应激反应级联效应</li>
+                                <li>激活细胞凋亡相关信号通路</li>
+                                <li>损伤程度与暴露时间和强度相关</li>
+                            </ul>
+                            <div class="result-image">
+                                <img src="image/research/blue-light-damage.png" alt="蓝光损伤机制图">
+                                <p class="image-caption">图1：蓝光诱导的视网膜细胞损伤机制</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-lightbulb"></i> 防护建议</h2>
+                        <div class="conclusion-points">
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>使用防蓝光屏幕保护膜或眼镜</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>控制电子设备使用时间和亮度</p>
+                            </div>
+                            <div class="point">
+                                <i class="fas fa-check-circle"></i>
+                                <p>补充叶黄素等视网膜保护剂</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-section">
+                        <h2><i class="fas fa-forward"></i> 临床意义</h2>
+                        <div class="future-directions">
+                            <ul>
+                                <li>为电子产品使用指南提供科学依据</li>
+                                <li>指导防蓝光产品的开发和应用</li>
+                                <li>为视网膜保护策略提供新思路</li>
+                                <li>有助于预防数字时代的视觉健康问题</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="article-references">
+                        <h2><i class="fas fa-book"></i> 参考文献</h2>
+                        <ul>
+                            <li>Li et al. (2024) Blue Light-Induced Retinal Damage. Nature Eye Research</li>
+                            <li>Wang et al. (2023) Oxidative Stress in RPE Cells. Cell Death & Disease</li>
+                            <li>Zhang et al. (2023) Mitochondrial Dysfunction in Retinal Degeneration. Scientific Reports</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article-footer">
+                    <div class="related-articles">
+                        <h3><i class="fas fa-bookmark"></i> 相关文章</h3>
+                        <ul>
+                            <li><a href="#">数字设备对视觉健康的影响研究</a></li>
+                            <li><a href="#">视网膜细胞保护的最新进展</a></li>
+                            <li><a href="#">防蓝光产品的科学评测</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 文章6 -->
+            <div class="article-content" id="article6">
+                <div class="article-header">
+                    <h1 class="article-title">白内障手术新技术的临床应用研究</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-08</span>
+                        <span><i class="fas fa-user"></i> 作者：Ophthalmology 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：手术创新</span>
+                    </div>
+                </div>
+                <!-- ... 文章6的内容 ... -->
+            </div>
+
+            <!-- 文章7 -->
+            <div class="article-content" id="article7">
+                <div class="article-header">
+                    <h1 class="article-title">糖尿病视网膜病变的早期预防策略</h1>
+                    <div class="article-meta">
+                        <span><i class="fas fa-calendar"></i> 发布日期：2024-03-05</span>
+                        <span><i class="fas fa-user"></i> 作者：Retina 研究团队</span>
+                        <span><i class="fas fa-tag"></i> 分类：并发症防治</span>
+                    </div>
+                </div>
+                <!-- ... 文章7的内容 ... -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // 隐藏加载状态
+            const loading = document.getElementById('loading');
+            if (loading) {
+                loading.style.display = 'none';
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const articleId = urlParams.get('id') || '1';
+            
+            // 显示文章
+            showArticle(articleId);
+        }
+
+        function showArticle(id) {
+            // 隐藏所有文章
+            document.querySelectorAll('.article-content').forEach(article => {
+                article.classList.remove('show');
+            });
+            
+            // 显示选中的文章
+            const selectedArticle = document.getElementById('article' + id);
+            if (selectedArticle) {
+                selectedArticle.classList.add('show');
+                // 滚动到顶部
+                window.scrollTo(0, 0);
+            } else {
+                showErrorMessage();
+            }
+        }
+
+        function showErrorMessage() {
+            const container = document.querySelector('.article-container');
+            container.innerHTML = `
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <h2>未找到文章</h2>
+                    <p>抱歉，您请求的文章不存在。</p>
+                    <a href="index.html" class="back-link">返回首页</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html> 

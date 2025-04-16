@@ -1,0 +1,479 @@
+/* 基础样式优化 */
+.content-body {
+    background: #0d325f;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.article-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(12,26,63,0.3);
+    border-radius: 12px;
+}
+
+.article-container > .article-content {
+    background: rgba(12,26,63,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.article-content .article-content {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+/* 文章头部样式优化 */
+.article-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(77,208,225,0.1);
+}
+
+.article-title {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: #bad0e2;
+    font-size: 14px;
+}
+
+.article-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 文章内容样式优化 */
+.article-content {
+    background: rgba(12,26,63,0.3);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.article-content.show {
+    display: block;
+    opacity: 1;
+}
+
+.article-content p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.article-summary {
+    background: rgba(41,151,228,0.1);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.article-section {
+    margin-bottom: 40px;
+}
+
+.article-section h2 {
+    color: #4dd0e1;
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.article-section h2 i {
+    color: #4dd0e1;
+}
+
+/* 研究方法部分优化 */
+.method-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin: 20px 0;
+}
+
+.method-item {
+    background: rgba(41,151,228,0.1);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid rgba(77,208,225,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.method-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(77,208,225,0.1);
+}
+
+.method-item h3 {
+    color: #4dd0e1;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.method-item ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.method-item li {
+    color: #bad0e2;
+    margin: 8px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.method-item li:before {
+    content: "•";
+    color: #4dd0e1;
+    position: absolute;
+    left: 0;
+}
+
+.method-item p {
+    flex: 1;
+}
+
+/* 研究结果部分优化 */
+.result-data {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.data-item {
+    background: rgba(41,151,228,0.1);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.data-value {
+    color: #4dd0e1;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.data-label {
+    color: #bad0e2;
+    font-size: 14px;
+}
+
+.conclusion-points {
+    display: grid;
+    gap: 15px;
+}
+
+.point {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #bad0e2;
+}
+
+.point i {
+    color: #4dd0e1;
+    margin-top: 3px;
+}
+
+/* 图片展示优化 */
+.result-image {
+    margin: 30px 0;
+    text-align: center;
+    background: rgba(41,151,228,0.05);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.result-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.image-caption {
+    text-align: center;
+    margin-top: 15px;
+    font-style: italic;
+    color: #bad0e2;
+}
+
+/* 列表样式优化 */
+.result-details {
+    margin-top: 30px;
+}
+
+.result-details h3 {
+    color: #4dd0e1;
+    margin-bottom: 15px;
+}
+
+.result-details ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0;
+    background: rgba(41,151,228,0.05);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.result-details li {
+    position: relative;
+    padding-left: 25px;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.result-details li::before {
+    position: absolute;
+    left: 0;
+    color: #4dd0e1;
+}
+
+.result-details li::before {
+    content: "•";
+}
+
+.future-directions ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0;
+    background: rgba(41,151,228,0.05);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.future-directions li {
+    position: relative;
+    padding-left: 25px;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+.future-directions li::before {
+    content: "→";
+}
+
+/* 参考文献样式优化 */
+.article-references {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(77,208,225,0.2);
+}
+
+.article-references ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0;
+}
+
+.article-references li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.article-references li:hover {
+    background: rgba(41,151,228,0.1);
+}
+
+/* 相关文章部分优化 */
+.article-footer {
+    margin-top: 50px;
+    background: rgba(12,26,63,0.3);
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.related-articles h3 {
+    color: #4dd0e1;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.related-articles ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.related-articles li {
+    margin: 10px 0;
+}
+
+.related-articles a {
+    color: #bad0e2;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    border-radius: 8px;
+    background: rgba(41,151,228,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    padding-left: 35px;
+}
+
+.related-articles a::before {
+    content: "•";
+    color: #4dd0e1;
+    position: absolute;
+    left: 15px;
+}
+
+.related-articles a:hover {
+    background: rgba(41,151,228,0.1);
+    transform: translateX(10px);
+}
+
+/* 添加加载动画 */
+.article-loading {
+    text-align: center;
+    padding: 50px;
+    color: #4dd0e1;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(77,208,225,0.1);
+    border-left-color: #4dd0e1;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 响应式优化 */
+@media screen and (max-width: 768px) {
+    .article-container {
+        padding: 15px;
+    }
+    
+    .article-header {
+        padding: 20px;
+    }
+    
+    .article-title {
+        font-size: 24px;
+    }
+    
+    .method-details,
+    .result-data {
+        grid-template-columns: 1fr;
+    }
+    
+    .data-value {
+        font-size: 28px;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* 加载状态 */
+.loading {
+    text-align: center;
+    padding: 50px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(77,208,225,0.1);
+    border-left-color: #4dd0e1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+/* 错误信息 */
+.error-message {
+    text-align: center;
+    padding: 50px;
+    color: #bad0e2;
+}
+
+.error-message i {
+    font-size: 48px;
+    color: #ff6b6b;
+    margin-bottom: 20px;
+}
+
+.error-message h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: rgba(77,208,225,0.1);
+    border-radius: 4px;
+    color: #4dd0e1;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: rgba(77,208,225,0.2);
+    transform: translateY(-2px);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 文章内容容器 */
+.article-body {
+    background: transparent;
+    padding: 0;
+}
+
+/* 修改诊断报告图标样式 */
+.report-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(41,151,228,0.1);  /* 与上传图片按钮相同的背景色 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.report-icon i {
+    font-size: 24px;
+    color: #4dd0e1;  /* 使用统一的图标颜色 */
+}
+
+.report-icon:hover {
+    transform: translateY(-5px);
+    background: rgba(41,151,228,0.2);
+} 

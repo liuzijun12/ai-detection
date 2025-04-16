@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0d325f;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+
+.content-body {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 2px solid rgba(41, 151, 228, 0.3);
+}
+
+.header-left span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.back-button a {
+    color: #2997e4;
+    text-decoration: none;
+    padding: 8px 15px;
+    border: 1px solid #2997e4;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.back-button a:hover {
+    background: #2997e4;
+    color: #ffffff;
+}
+
+.disease-content {
+    margin-top: 30px;
+}
+
+.disease-intro, .disease-symptoms, .disease-treatment, .disease-prevention {
+    background: rgba(12,26,63,0.3);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.disease-image {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.disease-image img {
+    width: 48%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+h2 {
+    color: #2997e4;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #bad0e2;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-position: inside;
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+    color: #bad0e2;
+}
+
+.treatment-methods {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.method {
+    width: 30%;
+    padding: 15px;
+    background: rgba(41, 151, 228, 0.1);
+    border-radius: 8px;
+}
+
+p {
+    color: #bad0e2;
+    line-height: 1.6;
+} 

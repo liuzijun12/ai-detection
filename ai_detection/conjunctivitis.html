@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>结膜炎 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <!-- Header部分 -->
+        <div class="header">
+            <div class="header-left">
+                <span>结膜炎</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 左侧导航栏 -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link active">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 主要内容区域 -->
+            <div class="main-content">
+                <div class="disease-info">
+                    <!-- 快速信息卡片 -->
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level medium">中风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>症状明显时及时就医</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>发病48小时内</p>
+                        </div>
+                    </div>
+
+                    <!-- 疾病介绍 -->
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是结膜炎？</h2>
+                        <p>结膜炎是眼睛结膜的炎症反应，可由病毒、细菌、过敏原等多种因素引起。它是最常见的眼部感染性疾病之一，具有较强的传染性，需要及时诊治和预防传播。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>眼红、分泌物增多</li>
+                                <li>眼痒、异物感</li>
+                                <li>可能有传染性</li>
+                                <li>多为自限性疾病</li>
+                            </ul>
+                        </div>
+
+                        <div class="disease-types">
+                            <h3><i class="fas fa-list-ul"></i> 结膜炎分类</h3>
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-virus"></i>
+                                        <h4>病毒性结膜炎</h4>
+                                    </div>
+                                    <p>由病毒感染引起，传染性强</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-bacterium"></i>
+                                        <h4>细菌性结膜炎</h4>
+                                    </div>
+                                    <p>由细菌感染引起，分泌物较多</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-wind"></i>
+                                        <h4>过敏性结膜炎</h4>
+                                    </div>
+                                    <p>由过敏原引起，瘙痒明显</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-radiation"></i>
+                                        <h4>化学性结膜炎</h4>
+                                    </div>
+                                    <p>由化学物质刺激引起</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3><i class="fas fa-image"></i> 图示说明：</h3>
+                            <div class="disease-images">
+                                <div class="disease-image">
+                                    <div class="image-title">图1：结膜炎发病机制示意图</div>
+                                    <img src="image/details/conjunctivitis/mechanism.png" alt="结膜炎发病机制">
+                                    <div class="image-desc">上图展示了结膜炎的发病机制</div>
+                                </div>
+                                <div class="disease-image">
+                                    <div class="image-title">图2：正常眼睛与结膜炎对比图</div>
+                                    <img src="image/details/conjunctivitis/compare.png" alt="正常眼睛与结膜炎对比">
+                                    <div class="image-desc">上图展示了正常眼睛与结膜炎的对比</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 症状部分 -->
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 常见症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-eye"></i>
+                                        <h4>眼红</h4>
+                                        <p>结膜充血、水肿</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-tint"></i>
+                                        <h4>分泌物</h4>
+                                        <p>可能为浆液性或脓性</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-hand-sparkles"></i>
+                                        <h4>瘙痒感</h4>
+                                        <p>尤其在过敏性结膜炎中明显</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-sun"></i>
+                                        <h4>畏光</h4>
+                                        <p>对光线敏感</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-stethoscope"></i> 特异性表现</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-virus"></i>
+                                        <h4>病毒性</h4>
+                                        <p>水样分泌物，可能有淋巴结肿大</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-bacterium"></i>
+                                        <h4>细菌性</h4>
+                                        <p>黄绿色脓性分泌物</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-wind"></i>
+                                        <h4>过敏性</h4>
+                                        <p>剧烈瘙痒，可能伴有鼻炎</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-burn"></i>
+                                        <h4>化学性</h4>
+                                        <p>灼烧感，流泪增多</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 治疗方法 -->
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 治疗方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-eye-dropper"></i>
+                                    <h3>药物治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>抗病毒眼药水</li>
+                                        <li>抗生素眼药水</li>
+                                        <li>抗过敏眼药水</li>
+                                        <li>人工泪液</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-hand-holding-medical"></i>
+                                    <h3>局部护理</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>清洁分泌物</li>
+                                        <li>冷敷/热敷</li>
+                                        <li>避免揉眼</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-shield-virus"></i>
+                                    <h3>预防传播</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>勤洗手</li>
+                                        <li>避免共用毛巾</li>
+                                        <li>隔离感染源</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧建议栏 -->
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-hands-wash"></i>
+                            <div class="advice-content">
+                                <h4>保持卫生</h4>
+                                <p>经常洗手，避免用手揉眼</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-box-tissue"></i>
+                            <div class="advice-content">
+                                <h4>分泌物处理</h4>
+                                <p>使用干净棉球擦拭，由内向外</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-bed"></i>
+                            <div class="advice-content">
+                                <h4>充分休息</h4>
+                                <p>保证充足睡眠，促进恢复</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-user-friends"></i>
+                            <div class="advice-content">
+                                <h4>避免传播</h4>
+                                <p>使用个人专用毛巾和物品</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免接触污染物和过敏原</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免佩戴隐形眼镜</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免使用含防腐剂眼药水</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

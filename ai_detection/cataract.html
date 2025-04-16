@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>白内障 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <div class="header">
+            <div class="header-left">
+                <span>白内障</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 左侧导航栏 -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link active">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 主要内容区域 -->
+            <div class="main-content">
+                <div class="disease-info">
+                    <!-- 快速信息卡片 -->
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level medium">中风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>及时就医检查</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>发现视力模糊及时就医</p>
+                        </div>
+                    </div>
+
+                    <!-- 疾病介绍 -->
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是白内障？</h2>
+                        <p>白内障是一种常见的眼科疾病，主要表现为眼球晶状体发生混浊，导致光线无法正常通过晶状体到达视网膜，造成视力下降。它是全球致盲的主要原因之一，但通过及时的手术治疗可以恢复视力。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>晶状体混浊或浑浊</li>
+                                <li>视力进行性下降</li>
+                                <li>视物模糊不清</li>
+                                <li>对比敏感度降低</li>
+                            </ul>
+                        </div>
+
+                        <div class="disease-types">
+                            <h3><i class="fas fa-list-ul"></i> 白内障分类</h3>
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-user-clock"></i>
+                                        <h4>年龄相关性白内障</h4>
+                                    </div>
+                                    <p>最常见类型，与年龄增长相关，通常发生在60岁以上人群</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-baby"></i>
+                                        <h4>先天性白内障</h4>
+                                    </div>
+                                    <p>出生时就存在的白内障，可能与遗传因素或妊娠期感染有关</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-hammer"></i>
+                                        <h4>外伤性白内障</h4>
+                                    </div>
+                                    <p>由眼部外伤导致的晶状体混浊，可能急性或慢性发展</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-pills"></i>
+                                        <h4>并发性白内障</h4>
+                                    </div>
+                                    <p>由其他眼部疾病或全身性疾病引起的白内障</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3>图示说明：</h3>
+                            <div class="disease-images">
+                                <div class="disease-image">
+                                    <div class="image-title">图1：白内障发病机制示意图</div>
+                                    <img src="image/details/cataract/mechanism.png" alt="白内障发病机制">
+                                    <div class="image-desc">上图展示了白内障的发病机制</div>
+                                </div>
+                                <div class="disease-image">
+                                    <div class="image-title">图2：正常眼睛与白内障对比图</div>
+                                    <img src="image/details/cataract/compare.png" alt="正常眼睛与白内障对比">
+                                    <div class="image-desc">上图展示了正常眼睛与白内障的对比</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 症状 -->
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 视觉症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-low-vision"></i>
+                                        <h4>视力模糊</h4>
+                                        <p>视物不清，像隔着毛玻璃</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-clone"></i>
+                                        <h4>重影</h4>
+                                        <p>看物体出现重叠现象</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-sun"></i>
+                                        <h4>畏光</h4>
+                                        <p>对强光特别敏感</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-moon"></i>
+                                        <h4>夜视能力差</h4>
+                                        <p>夜间视物更加困难</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-palette"></i> 色觉变化</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-tint"></i>
+                                        <h4>色彩感知改变</h4>
+                                        <p>颜色显得暗淡或发黄</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-adjust"></i>
+                                        <h4>对比度降低</h4>
+                                        <p>物体轮廓不清晰</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-calendar-alt"></i> 进展特点</h3>
+                                <div class="progress-timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>早期</h4>
+                                            <p>轻微视力模糊，可能需要经常更换眼镜</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>中期</h4>
+                                            <p>视物模糊加重，影响日常生活</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>晚期</h4>
+                                            <p>严重视力下降，需要手术治疗</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 治疗方法 -->
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 治疗方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-hospital-user"></i>
+                                    <h3>手术治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>超声乳化手术</li>
+                                        <li>人工晶状体植入</li>
+                                        <li>小切口白内障手术</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-stethoscope"></i>
+                                    <h3>术前准备</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>全面眼科检查</li>
+                                        <li>人工晶状体度数测量</li>
+                                        <li>基础疾病控制</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-hand-holding-medical"></i>
+                                    <h3>术后护理</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>按时使用眼药水</li>
+                                        <li>避免剧烈运动</li>
+                                        <li>定期复查</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 预防建议 -->
+                    <div class="section">
+                        <h2><i class="fas fa-shield-alt"></i> 预防建议</h2>
+                        <div class="prevention-tips">
+                            <div class="tip">
+                                <i class="fas fa-sun"></i>
+                                <h4>防护紫外线</h4>
+                                <p>外出佩戴防UV墨镜</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-apple-alt"></i>
+                                <h4>均衡饮食</h4>
+                                <p>补充维生素A、C和E</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-calendar-check"></i>
+                                <h4>定期检查</h4>
+                                <p>每年进行眼科检查</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-smoking-ban"></i>
+                                <h4>戒烟限酒</h4>
+                                <p>保持健康生活方式</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 推荐医院 -->
+                    <div class="section">
+                        <h2><i class="fas fa-hospital"></i> 推荐医院</h2>
+                        <div class="hospital-list">
+                            <div class="hospital-card">
+                                <h3>北京同仁医院</h3>
+                                <div class="hospital-info">
+                                    <p><i class="fas fa-map-marker-alt"></i> 北京市东城区东交民巷1号</p>
+                                    <p><i class="fas fa-phone"></i> 010-58266699</p>
+                                    <div class="rating">
+                                        <span>专科评分：</span>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧建议栏 -->
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-eye"></i>
+                            <div class="advice-content">
+                                <h4>保护眼睛</h4>
+                                <p>避免长时间暴露在强光下</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-utensils"></i>
+                            <div class="advice-content">
+                                <h4>健康饮食</h4>
+                                <p>多吃富含抗氧化物质的食物</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-bed"></i>
+                            <div class="advice-content">
+                                <h4>充足休息</h4>
+                                <p>保证充足的睡眠时间</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-walking"></i>
+                            <div class="advice-content">
+                                <h4>适度运动</h4>
+                                <p>保持适度的身体活动</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免揉擦眼睛</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免在强光下长时间活动</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免在黑暗环境下看书或用眼</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

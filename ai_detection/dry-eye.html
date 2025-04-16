@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>干眼症 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <!-- Header部分 -->
+        <div class="header">
+            <div class="header-left">
+                <span>干眼症</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 左侧导航栏 -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link active">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 主要内容区域 -->
+            <div class="main-content">
+                <div class="disease-info">
+                    <!-- 快速信息卡片 -->
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level medium">中风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>症状持续建议就医</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>症状持续两周以上</p>
+                        </div>
+                    </div>
+
+                    <!-- 疾病介绍 -->
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是干眼症？</h2>
+                        <p>干眼症是一种多因素导致的泪膜稳定性下降和眼表微环境改变的疾病，会引起眼部不适和视觉功能障碍。它是现代社会常见的眼表疾病，与电子设备使用、环境因素和年龄等多种因素相关。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>泪液分泌不足或蒸发过快</li>
+                                <li>眼部持续性不适感</li>
+                                <li>视觉波动</li>
+                                <li>眼表损伤</li>
+                            </ul>
+                        </div>
+
+                        <div class="disease-types">
+                            <h3><i class="fas fa-list-ul"></i> 干眼症分类</h3>
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-tint-slash"></i>
+                                        <h4>水液缺乏型</h4>
+                                    </div>
+                                    <p>泪腺功能减退导致泪液分泌不足</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-wind"></i>
+                                        <h4>蒸发过强型</h4>
+                                    </div>
+                                    <p>泪液蒸发加快导致眼表干燥</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-random"></i>
+                                        <h4>混合型</h4>
+                                    </div>
+                                    <p>同时存在泪液缺乏和蒸发过强</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-laptop"></i>
+                                        <h4>用眼过度型</h4>
+                                    </div>
+                                    <p>长期使用电子设备导致</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 在疾病介绍部分后添加 -->
+                    <div class="section">
+                        <h2><i class="fas fa-list-ul"></i> 干眼症分类</h2>
+                        
+                        <div class="type-grid">
+                            <div class="type-card">
+                                <i class="fas fa-angle-double-right"></i>
+                                水液缺乏型
+                                <p>泪腺功能减退，泪液分泌不足</p>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-angle-double-right"></i>
+                                蒸发过强型
+                                <p>泪液蒸发加快，眼表干燥</p>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-angle-double-right"></i>
+                                混合型
+                                <p>同时存在泪液缺乏和蒸发过强</p>
+                            </div>
+                            <div class="type-card">
+                                <i class="fas fa-angle-double-right"></i>
+                                用眼过度型
+                                <p>长期使用电子设备导致</p>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3><i class="fas fa-image"></i> 图示说明：</h3>
+                            <div class="disease-images">
+                                <div class="disease-image">
+                                    <div class="image-title">图1：干眼症发病机制示意图</div>
+                                    <img src="image/details/dry-eye/mechanism.png" alt="干眼症发病机制">
+                                    <div class="image-desc">上图展示了干眼症的发病机制</div>
+                                </div>
+                                <div class="disease-image">
+                                    <div class="image-title">图2：正常眼睛与干眼症对比图</div>
+                                    <img src="image/details/dry-eye/compare.png" alt="正常眼睛与干眼症对比">
+                                    <div class="image-desc">上图展示了正常眼睛与干眼症的对比</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 症状部分 -->
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 主观症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-burn"></i>
+                                        <h4>干涩感</h4>
+                                        <p>眼睛干燥、发痒</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-fire"></i>
+                                        <h4>异物感</h4>
+                                        <p>有沙子在眼睛的感觉</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-eye-slash"></i>
+                                        <h4>视疲劳</h4>
+                                        <p>用眼疲劳加重</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-lightbulb"></i>
+                                        <h4>畏光</h4>
+                                        <p>对光线敏感</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-microscope"></i> 客观体征</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-tint"></i>
+                                        <h4>泪膜破裂时间缩短</h4>
+                                        <p>BUT值降低</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-eye"></i>
+                                        <h4>角膜染色阳性</h4>
+                                        <p>可见点状着色</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-vial"></i>
+                                        <h4>泪液分泌减少</h4>
+                                        <p>Schirmer试验异常</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-allergies"></i>
+                                        <h4>结膜充血</h4>
+                                        <p>眼球表面发红</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 治疗方法 -->
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 治疗方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-eye-dropper"></i>
+                                    <h3>药物治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>人工泪液</li>
+                                        <li>眼部润滑剂</li>
+                                        <li>抗炎药物</li>
+                                        <li>促进泪液分泌药物</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-plug"></i>
+                                    <h3>物理治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>泪小点栓塞</li>
+                                        <li>热敷按摩</li>
+                                        <li>眼部护理</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-hand-holding-water"></i>
+                                    <h3>环境调节</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>增加环境湿度</li>
+                                        <li>避免空调直吹</li>
+                                        <li>使用加湿器</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧建议栏 -->
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="advice-content">
+                                <h4>规律休息</h4>
+                                <p>每用眼1小时休息10分钟</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-tint"></i>
+                            <div class="advice-content">
+                                <h4>保持湿度</h4>
+                                <p>室内湿度保持在50-60%</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-eye"></i>
+                            <div class="advice-content">
+                                <h4>眨眼练习</h4>
+                                <p>每小时做10次完全眨眼</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-glass-water"></i>
+                            <div class="advice-content">
+                                <h4>补充水分</h4>
+                                <p>每天饮水2000ml以上</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免长时间使用电子设备</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免在干燥环境久留</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免揉擦眼睛</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

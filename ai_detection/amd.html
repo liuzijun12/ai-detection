@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>黄斑变性 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <!-- Header部分 -->
+        <div class="header">
+            <div class="header-left">
+                <span>黄斑变性</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 左侧导航栏 -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link active">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 主要内容区域 -->
+            <div class="main-content">
+                <div class="disease-info">
+                    <!-- 快速信息卡片 -->
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level high">高风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>及时就医检查</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>发现视物变形及时就医</p>
+                        </div>
+                    </div>
+
+                    <!-- 疾病介绍 -->
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是黄斑变性？</h2>
+                        <p>黄斑变性(AMD)是一种影响视网膜中央区域（黄斑）的进行性疾病，主要发生在老年人群中。它会导致中心视力的逐渐丧失，影响阅读、驾驶等需要精细视觉的活动。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>中心视力下降</li>
+                                <li>视物变形</li>
+                                <li>视野中央暗点</li>
+                                <li>色觉改变</li>
+                            </ul>
+                        </div>
+
+                        <div class="disease-types">
+                            <h3><i class="fas fa-list-ul"></i> 黄斑变性分类</h3>
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-leaf"></i>
+                                        <h4>干性黄斑变性</h4>
+                                    </div>
+                                    <p>进展缓慢，视力逐渐下降</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-tint"></i>
+                                        <h4>湿性黄斑变性</h4>
+                                    </div>
+                                    <p>进展快，需要及时治疗</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-user-clock"></i>
+                                        <h4>早期AMD</h4>
+                                    </div>
+                                    <p>可见玻璃膜疣，视力正常</p>
+                                </div>
+                                <div class="type-card">
+                                    <div class="type-header">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <h4>晚期AMD</h4>
+                                    </div>
+                                    <p>视力严重受损，需要及时干预</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-section">
+                            <h3><i class="fas fa-image"></i> 图示说明：</h3>
+                            <div class="disease-images">
+                                <div class="disease-image">
+                                    <div class="image-title">图1：黄斑变性发病机制示意图</div>
+                                    <img src="image/details/amd/mechanism.png" alt="黄斑变性发病机制">
+                                    <div class="image-desc">上图展示了黄斑变性的发病机制</div>
+                                </div>
+                                <div class="disease-image">
+                                    <div class="image-title">图2：正常眼睛与黄斑变性对比图</div>
+                                    <img src="image/details/amd/compare.png" alt="正常眼睛与黄斑变性对比">
+                                    <div class="image-desc">上图展示了正常眼睛与黄斑变性的对比</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 症状部分 -->
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 视觉症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-compress"></i>
+                                        <h4>视物变形</h4>
+                                        <p>直线看起来弯曲</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-circle"></i>
+                                        <h4>中心暗点</h4>
+                                        <p>视野中央出现黑点</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-low-vision"></i>
+                                        <h4>视力下降</h4>
+                                        <p>中心视力逐渐模糊</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-palette"></i>
+                                        <h4>色觉改变</h4>
+                                        <p>色彩感知减退</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-calendar-alt"></i> 进展特点</h3>
+                                <div class="progress-timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>早期</h4>
+                                            <p>视力正常，可见玻璃膜疣</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>中期</h4>
+                                            <p>出现视物变形，视力下降</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>晚期</h4>
+                                            <p>中心视力严重受损</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 治疗方法 -->
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 治疗方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-syringe"></i>
+                                    <h3>药物治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>抗VEGF注射</li>
+                                        <li>营养神经药物</li>
+                                        <li>抗氧化剂补充</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-laser"></i>
+                                    <h3>激光治疗</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>光动力疗法</li>
+                                        <li>激光光凝术</li>
+                                        <li>经瞳孔温热疗法</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-glasses"></i>
+                                    <h3>视觉康复</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>低视力助视器</li>
+                                        <li>视觉训练</li>
+                                        <li>生活技能训练</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧建议栏 -->
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-carrot"></i>
+                            <div class="advice-content">
+                                <h4>健康饮食</h4>
+                                <p>富含叶黄素和抗氧化物</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-smoking-ban"></i>
+                            <div class="advice-content">
+                                <h4>戒烟限酒</h4>
+                                <p>避免吸烟和过量饮酒</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-sun"></i>
+                            <div class="advice-content">
+                                <h4>防护紫外线</h4>
+                                <p>外出佩戴防UV墨镜</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <div class="advice-content">
+                                <h4>定期检查</h4>
+                                <p>每年进行眼底检查</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免长时间使用电子设备</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免强光直射眼睛</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免剧烈运动和重体力活动</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

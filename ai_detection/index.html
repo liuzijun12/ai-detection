@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>眼部疾病的检测与预防</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/ai-diagnosis.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- 添加浮层内容区域 -->
+    <div class="floating-panels">
+        <div class="panel-container" id="medicalRecords" style="display: none;">
+            <div class="panel-wrapper">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fas fa-file-medical"></i>
+                        <span>我的病例</span>
+                    </div>
+                    <div class="header-right">
+                        <button class="close-panel" onclick="hidePanel('medicalRecords')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="empty-state">
+                        <i class="fas fa-file-medical"></i>
+                        <h3>暂无病例记录</h3>
+                        <p>您还没有进行过任何检测，请先进行眼部检测。</p>
+                        <button class="start-check-btn">
+                            <i class="fas fa-plus-circle"></i>
+                            开始检测
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-container" id="checkHistory" style="display: none;">
+            <div class="panel-wrapper">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fas fa-history"></i>
+                        <span>检查记录</span>
+                    </div>
+                    <div class="header-right">
+                        <button class="close-panel" onclick="hidePanel('checkHistory')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <h3>暂无检查记录</h3>
+                        <p>您还没有进行过任何检查，请先进行眼部检测。</p>
+                        <button class="start-check-btn">
+                            <i class="fas fa-plus-circle"></i>
+                            开始检测
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-container" id="notifications" style="display: none;">
+            <div class="panel-wrapper">
+                <div class="panel-header">
+                    <div class="header-left">
+                        <i class="fas fa-bell"></i>
+                        <span>消息通知</span>
+                    </div>
+                    <div class="header-right">
+                        <button class="close-panel" onclick="hidePanel('notifications')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="notifications-list">
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-hand-sparkles"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">欢迎使用眼部疾病预测中心</div>
+                                    <div class="notification-time">刚刚</div>
+                                </div>
+                                <div class="notification-text">
+                                    欢迎您使用我们的智能眼部疾病预测系统。我们将为您提供专业的眼部健康检测服务。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">使用小贴士</div>
+                                    <div class="notification-time">刚刚</div>
+                                </div>
+                                <div class="notification-text">
+                                    点击右下角的"开始检测"按钮，即可开始您的眼部健康检测之旅。
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="notification-content">
+                                <div class="notification-header">
+                                    <div class="notification-title">隐私保护提醒</div>
+                                    <div class="notification-time">刚刚</div>
+                                </div>
+                                <div class="notification-text">
+                                    我们采用先进的加密技术，确保您的个人信息和检测数据安全。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="header">
+            <div class="header-left">
+                <span>眼部疾病预测中心</span>
+            </div>
+            <div class="header-time">
+                <span id="time"></span>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                        <span>admin</span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="javascript:void(0)" class="menu-item" onclick="showPanel('medicalRecords', event)">
+                            <i class="fas fa-file-medical"></i>
+                            <span>我的病例</span>
+                        </a>
+                        <a href="javascript:void(0)" class="menu-item" onclick="showPanel('checkHistory', event)">
+                            <i class="fas fa-history"></i>
+                            <span>检查记录</span>
+                        </a>
+                        <a href="javascript:void(0)" class="menu-item" onclick="showPanel('notifications', event)">
+                            <i class="fas fa-bell"></i>
+                            <span>消息通知</span>
+                        </a>
+                        <a href="javascript:void(0)" class="menu-item logout" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>退出登录</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="content-con">
+                <div class="left-body">
+                    <div class="left-top public-bg">
+                        <div class="public-title">重点眼部检测疾病</div>
+                        <div class="top-body">
+                            <div class="top-left">
+                                <div class="top-left-title disease-card">
+                                    <a href="glaucoma.html" class="disease-link">
+                                        <h6>青光眼</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/glaucoma.png" alt="青光眼图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="top-right">
+                                <div class="top-left-title disease-card">
+                                    <a href="cataract.html" class="disease-link">
+                                        <h6>白内障</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/cataract.png" alt="白内障图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="top-left">
+                                <div class="top-left-title disease-card">
+                                    <a href="myopia.html" class="disease-link">
+                                        <h6>近视</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/myopia.png" alt="近视图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="top-right">
+                                <div class="top-left-title disease-card">
+                                    <a href="dry-eye.html" class="disease-link">
+                                        <h6>干眼病</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/dry-eye.png" alt="干眼病图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="top-left">
+                                <div class="top-left-title disease-card">
+                                    <a href="amd.html" class="disease-link">
+                                        <h6>黄斑变性</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/amd.png" alt="黄斑变性图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="top-right">
+                                <div class="top-left-title disease-card">
+                                    <a href="conjunctivitis.html" class="disease-link">
+                                        <h6>结膜炎</h6>
+                                        <div class="disease-img">
+                                            <img src="image/diseases/conjunctivitis.png" alt="结膜炎图片">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left-con public-bg">
+                        <div class="public-title">全国眼部疾病分布情况</div>
+                        <div class="title-nav" id="leida"></div>
+                    </div>
+                    <div class="left-bottom public-bg">
+                        <div class="public-title">患病率较高的五大眼部疾病</div>
+                        <div class="title-nav" id="wuran"></div>
+                    </div>
+                </div>
+
+                <div class="center-body">
+                    <div class="map" id="map"></div>
+                </div>
+
+                <div class="right-body">
+                    <div class="right-top public-bg">
+                        <div class="public-title">关于眼科疾病的最新研究</div>
+                        <div class="title-nav">
+                            <div class="top5-ul">
+                                <ul>
+                                    <li>
+                                        <span class="rank">NEW</span>
+                                        <span class="journal">Nature Med</span>
+                                        <a href="research-article.html?id=1">AI深度学习模型在青光眼早期诊断中的应用研究</a>
+                                        <span class="date">2024-03-18</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">NEW</span>
+                                        <span class="journal">Science</span>
+                                        <a href="research-article.html?id=2">新型生物材料在角膜修复中的突破性进展</a>
+                                        <span class="date">2024-03-15</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">NEW</span>
+                                        <span class="journal">Cell</span>
+                                        <a href="research-article.html?id=3">基于干细胞技术的视网膜再生研究新进展</a>
+                                        <span class="date">2024-03-14</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">NEW</span>
+                                        <span class="journal">JAMA Ophth</span>
+                                        <a href="research-article.html?id=4">近视防控新策略：户外活动与视力保护研究</a>
+                                        <span class="date">2024-03-12</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">HOT</span>
+                                        <span class="journal">Eye Research</span>
+                                        <a href="research-article.html?id=5">人工智能辅助诊断在眼科临床中的应用进展</a>
+                                        <span class="date">2024-03-10</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">HOT</span>
+                                        <span class="journal">Ophthalmology</span>
+                                        <a href="research-article.html?id=6">眼部微生物组与眼表疾病的相关性研究</a>
+                                        <span class="date">2024-03-08</span>
+                                    </li>
+                                    <li>
+                                        <span class="rank">HOT</span>
+                                        <span class="journal">Retina</span>
+                                        <a href="research-article.html?id=7">基因治疗在遗传性眼病中的临床应用</a>
+                                        <span class="date">2024-03-05</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="right-bottom public-bg">
+                        <div class="public-title">AI眼科图像诊断</div>
+                        <div class="ai-diagnosis">
+                            <div class="ai-intro">
+                                <div class="intro-text">
+                                    <div class="ai-capabilities">
+                                        <div class="capability-item">
+                                            <i class="fas fa-eye"></i>
+                                            <span>视网膜病变检测</span>
+                                        </div>
+                                        <div class="capability-item">
+                                            <i class="fas fa-search"></i>
+                                            <span>青光眼筛查</span>
+                                        </div>
+                                        <div class="capability-item">
+                                            <i class="fas fa-brain"></i>
+                                            <span>黄斑变性诊断</span>
+                                        </div>
+                                        <div class="capability-item">
+                                            <i class="fas fa-chart-line"></i>
+                                            <span>近视风险评估</span>
+                                        </div>
+                                        <div class="capability-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>实时分析</span>
+                                        </div>
+                                    </div>
+                                    <h3>智能眼科检测</h3>
+                                    <p>上传眼部图像，获取AI智能分析结果</p>
+                                </div>
+                                <div class="accuracy-badge">
+                                    <span class="accuracy-value">99.8%</span>
+                                    <span class="accuracy-label">准确率</span>
+                                </div>
+                            </div>
+                            <div class="diagnosis-steps">
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-image"></i>
+                                    </div>
+                                    <span>上传图像</span>
+                                </div>
+                                <div class="step-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-brain"></i>
+                                    </div>
+                                    <span>AI分析</span>
+                                </div>
+                                <div class="step-arrow">
+                                    <i class="fas fa-arrow-right"></i>
+                                </div>
+                                <div class="step">
+                                    <div class="step-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <span>诊断报告</span>
+                                </div>
+                            </div>
+
+                            <!-- 添加温馨提示 -->
+                            <div class="warm-tips">
+                                <i class="fas fa-heart"></i>
+                                <span>定期眼部检测，守护清晰视界</span>
+                                <div class="tips-list">
+                                    <div class="tip-item">
+                                        <i class="fas fa-clock"></i>
+                                        <span>建议半年一检</span>
+                                    </div>
+                                    <div class="tip-item">
+                                        <i class="fas fa-eye"></i>
+                                        <span>保护眼睛从现在开始</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                        <div class="disease-types">
+                            <div class="type-tag">青光眼</div>
+                            <div class="type-tag">白内障</div>
+                            <div class="type-tag">视网膜病变</div>
+                            <div class="type-tag">黄斑变性</div>
+                        </div>
+
+                        <button class="start-diagnosis" onclick="window.location.href='ai-diagnosis.html'">
+                            开始检测
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/china.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 检查登录状态
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'welcome.html';
+            return;
+        }
+
+        //顶部时间
+        function getTime(){
+            var myDate = new Date();
+            var myYear = myDate.getFullYear();
+            var myMonth = myDate.getMonth()+1;
+            var myToday = myDate.getDate();
+            var myDay = myDate.getDay();
+            var myHour = myDate.getHours();
+            var myMinute = myDate.getMinutes();
+            var mySecond = myDate.getSeconds();
+            var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+            var nowTime;
+
+            nowTime = myYear+'年'+fillZero(myMonth)+'月'+fillZero(myToday)+'日'+'&nbsp;&nbsp;'+fillZero(myHour)+':'+fillZero(myMinute)+':'+fillZero(mySecond)+'&nbsp;&nbsp;'+week[myDay]+'&nbsp;&nbsp;';
+            document.querySelector('#time').innerHTML = nowTime;
+        };
+
+        function fillZero(str){
+            var realNum;
+            if(str<10){
+                realNum = '0'+str;
+            }else{
+                realNum = str;
+            }
+            return realNum;
+        }
+
+        //大屏时间更新
+        setInterval(getTime,1000);
+
+        const avatar = document.querySelector('.avatar');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        
+        // 点击头像显示/隐藏下拉菜单
+        avatar.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+        
+        // 点击页面其他地方关闭下拉菜单
+        document.addEventListener('click', function() {
+            dropdownMenu.style.display = 'none';
+        });
+        
+        // 阻止下拉菜单内部点击事件冒泡
+        dropdownMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
+        // 显示面板的函数
+        window.showPanel = function(panelId, event) {
+            if (event) {
+                event.preventDefault();
+            }
+            // 隐藏所有面板
+            document.querySelectorAll('.panel-container').forEach(panel => {
+                panel.style.display = 'none';
+            });
+            
+            // 显示选中的面板
+            const selectedPanel = document.getElementById(panelId);
+            if (selectedPanel) {
+                selectedPanel.style.display = 'block';
+            }
+            
+            // 关闭下拉菜单
+            dropdownMenu.style.display = 'none';
+        }
+
+        // 隐藏面板的函数
+        window.hidePanel = function(panelId) {
+            const panel = document.getElementById(panelId);
+            if (panel) {
+                panel.style.display = 'none';
+            }
+        }
+
+        // 点击面板外部关闭面板
+        document.addEventListener('click', function(event) {
+            const panels = document.querySelectorAll('.panel-container');
+            
+            panels.forEach(panel => {
+                if (panel.style.display === 'block' && 
+                    !panel.contains(event.target) && 
+                    !dropdownMenu.contains(event.target) && 
+                    !avatar.contains(event.target)) {
+                    panel.style.display = 'none';
+                }
+            });
+        });
+
+        // 阻止面板内部点击事件冒泡
+        document.querySelectorAll('.panel-container').forEach(panel => {
+            panel.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+
+        // 退出登录功能
+        window.logout = function() {
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('username');
+            window.location.href = 'login.html';
+        }
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/earth.js"></script>
+
+<script>
+    // 检查登录状态
+    if (!sessionStorage.getItem('isLoggedIn')) {
+        window.location.href = 'welcome.html';
+    }
+
+    // 设置用户名
+    document.querySelector('.username').textContent = sessionStorage.getItem('username') || 'admin';
+
+    // 修改下拉菜单的显示/隐藏逻辑
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // 点击其他地方关闭下拉菜单
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('userDropdown');
+        const avatar = document.querySelector('.avatar');
+        if (!avatar.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    function showMedicalRecords() {
+        // 实现查看病例功能
+        console.log('查看病例');
+    }
+
+    function showCheckHistory() {
+        // 实现查看检查记录功能
+        console.log('查看检查记录');
+    }
+
+    function showNotifications() {
+        // 实现查看通知功能
+        console.log('查看通知');
+    }
+
+    function logout() {
+        // 实现退出登录功能
+        console.log('退出登录');
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('username');
+        window.location.href = 'login.html';
+    }
+</script>
+
+<script>
+    // 检查是否登录
+    if (!sessionStorage.getItem('isLoggedIn')) {
+        // 显示登录提示模态框
+        const modalHtml = `
+            <div class="login-prompt-modal">
+                <div class="modal-content">
+                    <h2>需要登录</h2>
+                    <p>请登录后查看详细内容</p>
+                    <div class="modal-buttons">
+                        <button onclick="window.location.href='login.html'">
+                            <i class="fas fa-sign-in-alt"></i> 立即登录
+                        </button>
+                        <button onclick="window.location.href='welcome.html'">
+                            <i class="fas fa-home"></i> 返回首页
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.innerHTML = modalHtml;
+        
+        // 添加样式
+        const style = document.createElement('style');
+        style.textContent = `
+            .login-prompt-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(12,26,63,0.95);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            
+            .modal-content {
+                background: rgba(255,255,255,0.1);
+                padding: 30px;
+                border-radius: 10px;
+                text-align: center;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(77,208,225,0.3);
+                animation: modalFadeIn 0.3s ease;
+            }
+            
+            .modal-content h2 {
+                color: #fff;
+                margin-bottom: 15px;
+            }
+            
+            .modal-content p {
+                color: #bad0e2;
+                margin-bottom: 25px;
+            }
+            
+            .modal-buttons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+            }
+            
+            .modal-buttons button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s ease;
+            }
+            
+            .modal-buttons button:first-child {
+                background: #2997e4;
+                color: #fff;
+            }
+            
+            .modal-buttons button:last-child {
+                background: transparent;
+                border: 1px solid #4dd0e1;
+                color: #4dd0e1;
+            }
+            
+            .modal-buttons button:hover {
+                transform: translateY(-2px);
+            }
+            
+            @keyframes modalFadeIn {
+                from { opacity: 0; transform: translateY(-20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+</script>
+
+<style>
+.user-profile {
+    position: relative;
+    margin-left: 20px;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.avatar:hover {
+    background: rgba(41,151,228,0.1);
+}
+
+.avatar i {
+    font-size: 24px;
+    color: #4dd0e1;
+}
+
+.username {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 240px;
+    background: rgba(2,11,36,0.95);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    border: 1px solid rgba(41,151,228,0.2);
+    padding: 0;
+    display: none;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    background: rgba(2,11,36,1);
+    border-bottom: 1px solid rgba(41,151,228,0.1);
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(41,151,228,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar i {
+    font-size: 24px;
+    color: #4dd0e1;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-name {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.user-role {
+    color: rgba(186,208,226,0.6);
+    font-size: 12px;
+}
+
+.menu-list {
+    padding: 8px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    color: #bad0e2;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-bottom: 2px;
+}
+
+.menu-item:hover {
+    background: rgba(41,151,228,0.1);
+    color: #ffffff;
+}
+
+.menu-item i {
+    width: 16px;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+.menu-item span {
+    flex: 1;
+    font-size: 14px;
+}
+
+.badge {
+    background: rgba(41,151,228,0.15);
+    color: #4dd0e1;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.menu-item:hover .badge {
+    background: rgba(41,151,228,0.25);
+    color: #ffffff;
+}
+
+.logout {
+    color: #ff6b6b;
+    margin-top: 4px;
+}
+
+.logout:hover {
+    background: rgba(255,107,107,0.1);
+    color: #ff8585;
+}
+</style>
+

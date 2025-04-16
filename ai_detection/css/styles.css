@@ -1,0 +1,124 @@
+/* 调整AI诊断容器样式 */
+.ai-diagnosis {
+    padding: 15px;
+}
+
+.ai-intro {
+    margin-bottom: 15px;
+}
+
+.disease-types {
+    margin-top: 30px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.type-tag {
+    padding: 6px 12px;
+    background: rgba(41,151,228,0.1);
+    border-radius: 16px;
+    color: #bad0e2;
+    font-size: 13px;
+}
+
+/* 诊断流程样式 */
+.diagnosis-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.flow-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.flow-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(65, 105, 225, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.flow-icon i {
+    font-size: 24px;
+    color: #4dd0e1;
+}
+
+.flow-item span {
+    color: #bad0e2;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.flow-arrow {
+    color: #4dd0e1;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.flow-item:hover .flow-icon {
+    background: rgba(65, 105, 225, 0.25);
+    transform: translateY(-2px);
+}
+
+/* AI优势说明样式 */
+.ai-advantages {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.advantage-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.advantage-item i {
+    font-size: 18px;
+    color: #4dd0e1;
+    width: 32px;
+    height: 32px;
+    background: rgba(41,151,228,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.advantage-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.advantage-text h4 {
+    color: #4dd0e1;
+    font-size: 15px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.advantage-text p {
+    color: #bad0e2;
+    font-size: 13px;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.start-diagnosis {
+    margin-top: 25px;
+    width: 100%;
+} 

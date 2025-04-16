@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>近视 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/disease-detail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="content-body">
+        <div class="header">
+            <div class="header-left">
+                <span>近视</span>
+            </div>
+            <div class="header-right">
+                <button class="action-button" onclick="window.location.href='ai-diagnosis.html'">
+                    <i class="fas fa-robot"></i>
+                    AI智能诊断
+                </button>
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-home"></i>
+                    返回首页
+                </a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-list-ul"></i>
+                    相关眼部疾病
+                </div>
+                <div class="disease-nav">
+                    <a href="glaucoma.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        青光眼
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                    <a href="cataract.html" class="disease-link">
+                        <i class="fas fa-eye-slash"></i>
+                        白内障
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="myopia.html" class="disease-link active">
+                        <i class="fas fa-glasses"></i>
+                        近视
+                        <span class="risk-badge low">低风险</span>
+                    </a>
+                    <a href="dry-eye.html" class="disease-link">
+                        <i class="fas fa-tint-slash"></i>
+                        干眼症
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="conjunctivitis.html" class="disease-link">
+                        <i class="fas fa-eye"></i>
+                        结膜炎
+                        <span class="risk-badge medium">中风险</span>
+                    </a>
+                    <a href="amd.html" class="disease-link">
+                        <i class="fas fa-bullseye"></i>
+                        黄斑变性
+                        <span class="risk-badge high">高风险</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="disease-info">
+                    <div class="quick-info">
+                        <div class="info-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>危险程度</h3>
+                            <div class="risk-level low">低风险</div>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-user-md"></i>
+                            <h3>就医建议</h3>
+                            <p>定期进行视力检查</p>
+                        </div>
+                        <div class="info-card">
+                            <i class="fas fa-clock"></i>
+                            <h3>最佳就医时间</h3>
+                            <p>每半年检查一次视力</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-info-circle"></i> 什么是近视？</h2>
+                        <p>近视（Myopia）是一种常见的屈光不正，由于眼球前后径过长或屈光系统屈光力过强，使平行光线在视网膜前聚焦，导致远处物体看不清楚。它是当今青少年中最普遍的视力问题之一。</p>
+                        
+                        <div class="key-points">
+                            <h3>关键特征：</h3>
+                            <ul>
+                                <li>远处物体模糊不清</li>
+                                <li>眼轴增长</li>
+                                <li>屈光度数进行性加深</li>
+                                <li>用眼疲劳加重</li>
+                            </ul>
+                        </div>
+
+                        <div class="section">
+                            <h2><i class="fas fa-list-ul"></i> 近视分类</h2>
+                            
+                            <div class="type-grid">
+                                <div class="type-card">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <h4>轻度近视</h4>
+                                    <p>度数小于300度，视力轻微下降</p>
+                                </div>
+                                <div class="type-card">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <h4>中度近视</h4>
+                                    <p>度数在300-600度之间，需要及时干预</p>
+                                </div>
+                                <div class="type-card">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <h4>重度近视</h4>
+                                    <p>度数大于600度，风险较高</p>
+                                </div>
+                                <div class="type-card">
+                                    <i class="fas fa-angle-double-right"></i>
+                                    <h4>病理性近视</h4>
+                                    <p>伴有眼底病变，需要密切关注</p>
+                                </div>
+                            </div>
+
+                            <div class="image-section">
+                                <h3><i class="fas fa-image"></i> 图示说明：</h3>
+                                <div class="disease-images">
+                                    <div class="disease-image">
+                                        <div class="image-title">图1：近视眼发病机制示意图</div>
+                                        <img src="image/details/myopia/mechanism.png" alt="近视眼发病机制">
+                                        <div class="image-desc">上图展示了近视眼的发病机制</div>
+                                    </div>
+                                    <div class="disease-image">
+                                        <div class="image-title">图2：正常眼睛与近视眼对比图</div>
+                                        <img src="image/details/myopia/compare.png" alt="正常眼睛与近视眼对比">
+                                        <div class="image-desc">上图展示了正常眼睛与近视眼的对比</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-exclamation-circle"></i> 主要症状</h2>
+                        
+                        <div class="symptoms-categories">
+                            <div class="category">
+                                <h3><i class="fas fa-eye"></i> 视觉症状</h3>
+                                <div class="symptoms-grid">
+                                    <div class="symptom-card">
+                                        <i class="fas fa-mountain"></i>
+                                        <h4>远视物模糊</h4>
+                                        <p>远处物体看不清楚</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-book-reader"></i>
+                                        <h4>易疲劳</h4>
+                                        <p>长时间用眼后疲劳加重</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-compress-arrows-alt"></i>
+                                        <h4>眯眼现象</h4>
+                                        <p>经常不自觉眯眼看远处</p>
+                                    </div>
+                                    <div class="symptom-card">
+                                        <i class="fas fa-head-side-virus"></i>
+                                        <h4>头痛</h4>
+                                        <p>可能伴有头痛症状</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="category">
+                                <h3><i class="fas fa-calendar-alt"></i> 发展特点</h3>
+                                <div class="progress-timeline">
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>初期</h4>
+                                            <p>视力轻微下降，看远处物体不清</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>发展期</h4>
+                                            <p>度数逐渐加深，需要定期更换眼镜</p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item">
+                                        <div class="timeline-point"></div>
+                                        <div class="timeline-content">
+                                            <h4>稳定期</h4>
+                                            <p>通常在18-22岁后度数趋于稳定</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-procedures"></i> 矫正方法</h2>
+                        <div class="treatment-methods">
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-glasses"></i>
+                                    <h3>光学矫正</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>框架眼镜</li>
+                                        <li>隐形眼镜</li>
+                                        <li>夜戴型角膜塑形镜</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-laser"></i>
+                                    <h3>手术矫正</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>准分子激光手术</li>
+                                        <li>ICL人工晶状体植入</li>
+                                        <li>SMILE小切口手术</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="treatment-card">
+                                <div class="card-header">
+                                    <i class="fas fa-eye"></i>
+                                    <h3>视功能训练</h3>
+                                </div>
+                                <div class="card-content">
+                                    <ul>
+                                        <li>眼部肌肉训练</li>
+                                        <li>调节功能训练</li>
+                                        <li>双眼视功能训练</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2><i class="fas fa-shield-alt"></i> 预防建议</h2>
+                        <div class="prevention-tips">
+                            <div class="tip">
+                                <i class="fas fa-clock"></i>
+                                <h4>用眼时间</h4>
+                                <p>每隔45分钟休息10分钟</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-sun"></i>
+                                <h4>户外活动</h4>
+                                <p>每天2小时户外活动</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-book"></i>
+                                <h4>读写姿势</h4>
+                                <p>保持33厘米以上读写距离</p>
+                            </div>
+                            <div class="tip">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h4>电子设备</h4>
+                                <p>控制使用时间，保持适当距离</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advice-sidebar">
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>日常建议</h3>
+                    </div>
+                    <div class="advice-list">
+                        <div class="advice-item">
+                            <i class="fas fa-ruler"></i>
+                            <div class="advice-content">
+                                <h4>保持阅读距离</h4>
+                                <p>保持33厘米以上的读写距离</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-sun"></i>
+                            <div class="advice-content">
+                                <h4>户外活动</h4>
+                                <p>每天保证2小时户外活动时间</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-lightbulb"></i>
+                            <div class="advice-content">
+                                <h4>保持光线充足</h4>
+                                <p>确保读写环境光线明亮均匀</p>
+                            </div>
+                        </div>
+                        <div class="advice-item">
+                            <i class="fas fa-carrot"></i>
+                            <div class="advice-content">
+                                <h4>均衡饮食</h4>
+                                <p>补充维生素A和叶黄素</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="advice-section">
+                    <div class="advice-header">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>注意事项</h3>
+                    </div>
+                    <div class="warning-list">
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免趴着看书或躺着看手机</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免在晃动的车辆上看书</p>
+                        </div>
+                        <div class="warning-item">
+                            <i class="fas fa-ban"></i>
+                            <p>避免长时间近距离用眼</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="emergency-contact">
+                    <div class="advice-header">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>紧急联系</h3>
+                    </div>
+                    <div class="contact-info">
+                        <p><i class="fas fa-hospital-alt"></i> 眼科急诊: 120</p>
+                        <p><i class="fas fa-phone"></i> 咨询热线: 010-xxxxxxxx</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

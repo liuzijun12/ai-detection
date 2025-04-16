@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>关于我们 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: #0d325f;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .section {
+            margin: 40px 0;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(12, 26, 63, 0.7);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            color: #2997e4;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            color: #4dd0e1;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        .tech-card {
+            background: rgba(41, 151, 228, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .tech-icon {
+            font-size: 30px;
+            color: #2997e4;
+            margin-right: 15px;
+        }
+        .tech-info h4 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .tech-info ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .tech-info li {
+            color: #bad0e2;
+            margin-bottom: 5px;
+        }
+        .cta-button {
+            background: #2997e4;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .cta-button:hover {
+            background: #4dd0e1;
+        }
+    </style>
+    <script>
+        function checkAndRedirect(event) {
+            event.preventDefault();
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('loginPrompt').style.display = 'flex';
+            }
+        }
+
+        function closeLoginPrompt(event) {
+            event.preventDefault();
+            document.getElementById('loginPrompt').style.display = 'none';
+        }
+
+        // 检查登录状态并更新导航栏
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const loginBtn = document.getElementById('loginBtn');
+            
+            if (isLoggedIn) {
+                loginBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> 退出';
+                loginBtn.href = '#';
+                loginBtn.onclick = function(e) {
+                    e.preventDefault();
+                    sessionStorage.removeItem('isLoggedIn');
+                    window.location.reload();
+                };
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- 左侧装饰元素 -->
+    <div class="decoration-left">
+        <div class="floating-icon" style="--delay: 0s">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 2s">
+            <i class="fas fa-brain"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 4s">
+            <i class="fas fa-microscope"></i>
+        </div>
+        <div class="floating-icon highlight" style="--delay: 1s">
+            <i class="fas fa-eye-dropper"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 3s">
+            <i class="fas fa-stethoscope"></i>
+        </div>
+    </div>
+
+    <!-- 右侧装饰元素 -->
+    <div class="decoration-right">
+        <div class="floating-icon" style="--delay: 1s">
+            <i class="fas fa-dna"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 3s">
+            <i class="fas fa-eye"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 5s">
+            <i class="fas fa-flask"></i>
+        </div>
+        <div class="floating-icon highlight" style="--delay: 2s">
+            <i class="fas fa-hospital-user"></i>
+        </div>
+        <div class="floating-icon" style="--delay: 4s">
+            <i class="fas fa-capsules"></i>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <i class="fas fa-eye"></i>
+                <span>眼部疾病预测中心</span>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="#" class="contact-link">
+                <i class="fas fa-envelope"></i>
+                联系我们
+            </a>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                返回首页
+            </a>
+        </div>
+    </nav>
+
+    <div class="about-container">
+        <!-- 项目背景 -->
+        <section class="about-section">
+            <div class="section-header">
+                <i class="fas fa-info-circle"></i>
+                <h2>项目背景</h2>
+            </div>
+            <div class="section-content">
+                <div class="background-info">
+                    <p class="highlight-text">眼科疾病已成为继肿瘤、心脑血管疾病之后第三大威胁人类健康的疾病。</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value">6亿+</div>
+                            <div class="stat-label">中国眼健康问题人群</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">180万+</div>
+                            <div class="stat-label">眼科医生缺口</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">80%</div>
+                            <div class="stat-label">眼科疾病可预防</div>
+                        </div>
+                    </div>
+                    <div class="detail-content">
+                        <p class="detail-text">随着数字化时代的到来，人们对电子设备的依赖度不断提高，加之人口老龄化进程加快，我国眼科疾病患病人数呈现快速增长趋势。与此同时，优质医疗资源分布不均，基层医疗机构眼科诊断能力不足等问题日益突出。</p>
+                        <p class="detail-text">为解决这一社会痛点，本项目依托先进的人工智能技术，结合眼科专家多年临床经验，开发了这套智能眼病诊断系统。系统通过深度学习算法对眼部图像进行分析，可快速识别多种常见眼科疾病，为医生提供辅助诊断建议，同时也为患者提供初步筛查服务。</p>
+                        <p class="detail-text">本系统的推出，将有效提升基层医疗机构的眼科诊断能力，缓解优质医疗资源紧缺的问题，为眼科疾病的早期预防和诊治提供有力支持。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI技术优势 -->
+        <section class="about-section">
+            <div class="section-header">
+                <i class="fas fa-robot"></i>
+                <h2>AI技术优势</h2>
+            </div>
+            <div class="tech-content">
+                <div class="tech-overview">
+                    <p class="tech-intro">采用业界领先的深度学习技术，结合百万级医疗数据训练，打造高精度智能诊断模型</p>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-brain"></i>
+                        <h3>深度神经网络</h3>
+                        <p>基于ResNet152架构<br>诊断准确率达99.8%</p>
+                        <div class="tech-detail">
+                            <span>• 多层卷积神经网络</span>
+                            <span>• 残差连接优化</span>
+                            <span>• 注意力机制增强</span>
+                            <span>• 迁移学习技术</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>实时分析</h3>
+                        <p>毫秒级响应<br>快速诊断反馈</p>
+                        <div class="tech-detail">
+                            <span>• 模型量化优化</span>
+                            <span>• GPU加速计算</span>
+                            <span>• 分布式处理</span>
+                            <span>• 智能缓存机制</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-sync"></i>
+                        <h3>持续优化</h3>
+                        <p>定期更新迭代<br>性能持续提升</p>
+                        <div class="tech-detail">
+                            <span>• 模型自适应学习</span>
+                            <span>• 增量训练更新</span>
+                            <span>• 诊断效果反馈</span>
+                            <span>• 专家经验融合</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="highlight-content">
+                            <h4>持续进化的AI模型</h4>
+                            <p>通过机器学习不断优化算法，融合最新医学研究成果，保持技术领先性</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-database"></i>
+                        <div class="highlight-content">
+                            <h4>海量医疗数据支持</h4>
+                            <p>累计分析超过100万张眼科图像，覆盖各类常见眼科疾病，诊断经验丰富</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 疾病检测能力 -->
+        <section class="about-section">
+            <div class="section-header">
+                <i class="fas fa-microscope"></i>
+                <h2>疾病检测能力</h2>
+            </div>
+            <div class="disease-grid">
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-eye"></i></div>
+                    <h3>视网膜病变</h3>
+                    <div class="disease-detail">
+                        <span>• 糖尿病视网膜病变</span>
+                        <span>• 高血压视网膜病变</span>
+                        <span>• 视网膜脱离</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 99.2%</div>
+                </div>
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-eye-slash"></i></div>
+                    <h3>青光眼</h3>
+                    <div class="disease-detail">
+                        <span>• 开角型青光眼</span>
+                        <span>• 闭角型青光眼</span>
+                        <span>• 继发性青光眼</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 98.8%</div>
+                </div>
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-low-vision"></i></div>
+                    <h3>白内障</h3>
+                    <div class="disease-detail">
+                        <span>• 老年性白内障</span>
+                        <span>• 外伤性白内障</span>
+                        <span>• 并发性白内障</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 99.5%</div>
+                </div>
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-exclamation-circle"></i></div>
+                    <h3>黄斑病变</h3>
+                    <div class="disease-detail">
+                        <span>• 年龄相关性黄斑变性</span>
+                        <span>• 黄斑水肿</span>
+                        <span>• 黄斑前膜</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 98.5%</div>
+                </div>
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-eye-dropper"></i></div>
+                    <h3>干眼症</h3>
+                    <div class="disease-detail">
+                        <span>• 蒸发过强型</span>
+                        <span>• 水液缺乏型</span>
+                        <span>• 混合型</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 97.8%</div>
+                </div>
+                <div class="disease-item">
+                    <div class="disease-icon"><i class="fas fa-allergies"></i></div>
+                    <h3>结膜炎</h3>
+                    <div class="disease-detail">
+                        <span>• 病毒性结膜炎</span>
+                        <span>• 细菌性结膜炎</span>
+                        <span>• 过敏性结膜炎</span>
+                    </div>
+                    <div class="accuracy">检测准确率: 98.2%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 系统流程 -->
+        <section class="about-section">
+            <div class="section-header">
+                <i class="fas fa-project-diagram"></i>
+                <h2>系统流程</h2>
+            </div>
+            <div class="process-flow">
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h3>图像采集</h3>
+                    <div class="process-detail">
+                        <p>支持多种格式上传</p>
+                        <ul>
+                            <li>• JPG/PNG格式</li>
+                            <li>• 高清眼底照片</li>
+                            <li>• 视网膜扫描图</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="process-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>智能分析</h3>
+                    <div class="process-detail">
+                        <p>AI深度学习分析</p>
+                        <ul>
+                            <li>• 图像预处理</li>
+                            <li>• 特征提取</li>
+                            <li>• 多模型融合</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="process-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <h3>报告生成</h3>
+                    <div class="process-detail">
+                        <p>专业诊断报告</p>
+                        <ul>
+                            <li>• 详细分析结果</li>
+                            <li>• 健康建议</li>
+                            <li>• 预防指导</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 系统特色 -->
+        <section class="about-section">
+            <div class="section-header">
+                <i class="fas fa-star"></i>
+                <h2>系统特色</h2>
+            </div>
+            <div class="features-list">
+                <div class="feature-row">
+                    <i class="fas fa-check-circle"></i>
+                    <span>疾病检测准确度高</span>
+                </div>
+                <div class="feature-row">
+                    <i class="fas fa-check-circle"></i>
+                    <span>支持多种眼科疾病识别</span>
+                </div>
+                <div class="feature-row">
+                    <i class="fas fa-check-circle"></i>
+                    <span>操作简单，使用便捷</span>
+                </div>
+                <div class="feature-row">
+                    <i class="fas fa-check-circle"></i>
+                    <span>诊断报告专业详实</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 开始体验 -->
+        <section class="start-section">
+            <div class="start-content">
+                <h2>立即开始体验</h2>
+                <p>快速、准确的眼科AI辅助诊断，为您的眼健康保驾护航</p>
+                <div class="start-buttons">
+                    <a href="index.html" class="start-btn primary-btn">
+                        <i class="fas fa-play-circle"></i>
+                        开始使用
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 眼部疾病预测中心 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- 登录提示模态框 -->
+    <div id="loginPrompt" class="login-prompt" style="display: none;">
+        <div class="prompt-content">
+            <h2>需要登录</h2>
+            <p>请先登录后使用系统</p>
+            <div class="prompt-buttons">
+                <a href="login.html" class="primary-btn">
+                    <i class="fas fa-sign-in-alt"></i> 立即登录
+                </a>
+                <a href="#" class="secondary-btn" onclick="closeLoginPrompt(event)">
+                    <i class="fas fa-times"></i> 取消
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
