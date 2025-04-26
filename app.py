@@ -1,20 +1,20 @@
 import os
 import torch
-import torch.nn as nn
 import torchvision.transforms as transforms
-from efficientnet_pytorch import EfficientNet
-from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for
+from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, Response
 from flask_cors import CORS
-from PIL import Image
 from functools import wraps
-from openai import OpenAI
 import logging
 import webbrowser
 import threading
 import time
 import requests
-import re
-import sys
+from werkzeug.utils import secure_filename
+from ultralytics import YOLO
+import json
+import datetime
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
