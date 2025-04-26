@@ -1,9 +1,17 @@
-flask==2.3.3
-werkzeug==2.3.7
-flask-cors==4.0.0
-torch==2.1.0
-torchvision==0.16.0
-numpy==1.24.3
-pillow==10.0.0
-efficientnet-pytorch==0.7.1
-requests==2.31.0 
+import os
+import torch
+import torchvision.transforms as transforms
+from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, Response
+from flask_cors import CORS
+from functools import wraps
+import logging
+import webbrowser
+import threading
+import time
+import requests
+from werkzeug.utils import secure_filename
+from ultralytics import YOLO
+import json
+import datetime
+from docx import Document
+from docx.enum.text import WD_ALIGN_PARAGRAPH
