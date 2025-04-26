@@ -1,17 +1,8 @@
-import os
-import torch
-import torchvision.transforms as transforms
-from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, Response
-from flask_cors import CORS
-from functools import wraps
-import logging
-import webbrowser
-import threading
-import time
-import requests
-from werkzeug.utils import secure_filename
-from ultralytics import YOLO
-import json
-import datetime
-from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+torch
+torchvision
+flask
+flask-cors
+requests
+werkzeug
+ultralytics
+python-docx
