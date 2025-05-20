@@ -388,7 +388,7 @@ function initMap() {
 		showLabel: false,
 		showIndoorMap: false,
 		defaultCursor: 'pointer',
-		backgroundColor: '#0c1a3f'
+		backgroundColor: '#0d325f'
 	});
 
 	// 等待地图加载完成
@@ -399,6 +399,7 @@ function initMap() {
 
 // 渲染地图图层
 function renderMapLayers(map) {
+	
 	// 加载行政区划插件
 	AMap.plugin(['AMap.DistrictSearch', 'AMap.DistrictLayer'], function() {
 		// 创建省级图层
@@ -808,7 +809,7 @@ function addProvinceLabels(map, province) {
 	// 获取省份数据
 	const provinceData = mapConfig.provinceHospitalData[province.name];
 	if (provinceData) {
-		// 添加医院数量标签
+	// 添加医院数量标签
 		new AMap.Text({
 			text: `${provinceData.count}家`,
 			position: [
@@ -867,23 +868,23 @@ function addProvinceLabels(map, province) {
 		);
 		
 		if (capitalCity && capitalCity.center) {
-			new AMap.Text({
+				new AMap.Text({
 				text: capitalCity.name.replace(/(市|地区|自治州)$/, ''),
 				position: capitalCity.center,
-				style: {
-					'background-color': 'transparent',
-					'border': 'none',
-					'color': '#bad0e2',
-					'font-size': '12px',
-					'padding': '2px 5px',
+					style: {
+						'background-color': 'transparent',
+						'border': 'none',
+						'color': '#bad0e2',
+						'font-size': '12px',
+						'padding': '2px 5px',
 					'text-shadow': '1px 1px 2px rgba(0,0,0,0.5)',
 					'user-select': 'none',
 					'pointer-events': 'none',
 					'font-style': 'italic'
-				},
+					},
 				zIndex: 117
-			}).setMap(map);
-		}
+				}).setMap(map);
+			}
 	}
 }
 
@@ -1329,21 +1330,24 @@ function initNewsScroll() {
 			journal: "Nature Medicine",
 			date: "2024-03-18",
 			url: "https://www.nature.com/articles/s41591-024-02737-w",
-			detail: "研究发现新的AI模型可提前2-3年预测青光眼的发展"
+			detail: "研究发现新的AI模型可提前2-3年预测青光眼的发展",
+			tag: "AI诊断"
 		},
 		{
 			title: "新型生物材料在角膜修复中的突破性进展",
 			journal: "Science",
 			date: "2024-03-15",
 			url: "https://www.science.org/doi/10.1126/science.adg9130",
-			detail: "可降解生物材料在角膜修复中展现出良好效果"
+			detail: "可降解生物材料在角膜修复中展现出良好效果",
+			tag: "治疗进展"
 		},
 		{
 			title: "基于干细胞技术的视网膜再生研究新进展",
 			journal: "Cell",
 			date: "2024-03-14",
 			url: "https://www.cell.com/cell/fulltext/S0092-8674(24)00133-4",
-			detail: "干细胞治疗有望治愈视网膜退化性疾病"
+			detail: "干细胞治疗有望治愈视网膜退化性疾病",
+			tag: "前沿研究"
 		},
 		{
 			title: "新发现：微生物组失衡与干眼症发病机制的关联",
@@ -1410,49 +1414,155 @@ function initNewsScroll() {
 		}
 	];
 
-	let currentNewsIndex = 0;
 	const newsContainer = document.querySelector('.news-container');
+	const newsListContainer = document.createElement('div');
+	newsListContainer.className = 'news-list';
 	
-	function updateNewsDisplay() {
-		let html = '';
-		// 显示当前可见的4条新闻
-		for(let i = 0; i < 4; i++) {
-			const index = (currentNewsIndex + i) % newsData.length;
-			const news = newsData[index];
-			html += `
-				<div class="news-item" onclick="window.open('${news.url}', '_blank')">
+	// 创建控制按钮
+	const controlsHtml = `
+		<div class="news-controls">
+			<button class="news-control prev" title="上一页">
+				<i class="fas fa-chevron-up"></i>
+			</button>
+			<button class="news-control next" title="下一页">
+				<i class="fas fa-chevron-down"></i>
+			</button>
+			<button class="news-control pause" title="暂停/播放">
+				<i class="fas fa-pause"></i>
+			</button>
+		</div>
+	`;
+
+	// 初始化新闻列表容器
+	newsContainer.innerHTML = '';
+	newsContainer.appendChild(newsListContainer);
+	newsContainer.insertAdjacentHTML('beforeend', controlsHtml);
+
+	let currentIndex = 0;
+	let isAnimating = false;
+	let autoScrollInterval;
+	let isPaused = false;
+
+	// 创建新闻元素
+	function createNewsElement(news) {
+		return `
+			<div class="news-item" style="opacity: 0; transform: translateY(20px);">
+				<div class="news-tag ${news.tag ? news.tag.toLowerCase().replace(/\s+/g, '-') : ''}">${news.tag || ''}</div>
+				<div class="news-content">
 					<div class="news-title">${news.title}</div>
 					<div class="news-info">
 						<span class="news-journal">${news.journal}</span>
 						<span class="news-date">${news.date}</span>
 					</div>
+					<div class="news-detail">${news.detail}</div>
 				</div>
-			`;
+			</div>
+		`;
+	}
+
+	// 更新新闻显示
+	function updateNews(direction = 'down') {
+		if (isAnimating) return;
+		isAnimating = true;
+
+		const oldItems = newsListContainer.querySelectorAll('.news-item');
+		const itemHeight = oldItems[0]?.offsetHeight || 0;
+		const translateY = direction === 'down' ? -itemHeight : itemHeight;
+
+		// 移除旧项目的动画
+		oldItems.forEach(item => {
+			item.style.transition = 'all 0.5s ease';
+			item.style.opacity = '0';
+			item.style.transform = `translateY(${translateY}px)`;
+		});
+
+		// 准备新的新闻项目
+		setTimeout(() => {
+			newsListContainer.innerHTML = '';
+			for (let i = 0; i < 4; i++) {
+				const index = (currentIndex + i) % newsData.length;
+				const newsItem = createNewsElement(newsData[index]);
+				newsListContainer.insertAdjacentHTML('beforeend', newsItem);
+			}
+
+			// 添加新项目的动画
+			const newItems = newsListContainer.querySelectorAll('.news-item');
+			newItems.forEach((item, index) => {
+				setTimeout(() => {
+					item.style.transition = 'all 0.5s ease';
+					item.style.opacity = '1';
+					item.style.transform = 'translateY(0)';
+				}, index * 100);
+			});
+
+			isAnimating = false;
+		}, 500);
+	}
+
+	// 自动滚动功能
+	function startAutoScroll() {
+		if (autoScrollInterval) clearInterval(autoScrollInterval);
+		autoScrollInterval = setInterval(() => {
+			if (!isPaused) {
+				currentIndex = (currentIndex + 1) % newsData.length;
+				updateNews('down');
+			}
+		}, 5000);
+	}
+
+	// 停止自动滚动
+	function stopAutoScroll() {
+		if (autoScrollInterval) {
+			clearInterval(autoScrollInterval);
+			autoScrollInterval = null;
 		}
-		newsContainer.innerHTML = html;
 	}
 
-	// 自动轮播函数
-	function autoScroll() {
-		currentNewsIndex = (currentNewsIndex + 1) % newsData.length;
-		updateNewsDisplay();
-	}
+	// 事件监听器
+	newsContainer.querySelector('.prev').addEventListener('click', () => {
+		currentIndex = (currentIndex - 1 + newsData.length) % newsData.length;
+		updateNews('up');
+	});
 
-	// 初始显示
-	updateNewsDisplay();
-	
-	// 设置定时器，每5秒滚动一次
-	let scrollTimer = setInterval(autoScroll, 5000);
+	newsContainer.querySelector('.next').addEventListener('click', () => {
+		currentIndex = (currentIndex + 1) % newsData.length;
+		updateNews('down');
+	});
 
-	// 鼠标悬停时暂停轮播
+	newsContainer.querySelector('.pause').addEventListener('click', (e) => {
+		isPaused = !isPaused;
+		const icon = e.currentTarget.querySelector('i');
+		icon.className = isPaused ? 'fas fa-play' : 'fas fa-pause';
+	});
+
+	// 鼠标悬停控制
 	newsContainer.addEventListener('mouseenter', () => {
-		clearInterval(scrollTimer);
+		isPaused = true;
+		const pauseButton = newsContainer.querySelector('.pause i');
+		pauseButton.className = 'fas fa-play';
 	});
 
-	// 鼠标离开时恢复轮播
 	newsContainer.addEventListener('mouseleave', () => {
-		scrollTimer = setInterval(autoScroll, 5000);
+		isPaused = false;
+		const pauseButton = newsContainer.querySelector('.pause i');
+		pauseButton.className = 'fas fa-pause';
 	});
+
+	// 点击新闻打开链接
+	newsListContainer.addEventListener('click', (e) => {
+		const newsItem = e.target.closest('.news-item');
+		if (newsItem) {
+			const index = Array.from(newsListContainer.children).indexOf(newsItem);
+			const news = newsData[(currentIndex + index) % newsData.length];
+			if (news.url) {
+				window.open(news.url, '_blank');
+			}
+		}
+	});
+
+	// 初始显示新闻
+	updateNews();
+	startAutoScroll();
 }
 
 // 添加用户相关功能
