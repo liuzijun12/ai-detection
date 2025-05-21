@@ -1,6 +1,9 @@
 import os
+import re
+from PIL import Image
 import torch
 import torchvision.transforms as transforms
+from efficientnet_pytorch import EfficientNet
 from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, Response
 from flask_cors import CORS
 from functools import wraps
@@ -9,6 +12,8 @@ import webbrowser
 import threading
 import time
 import requests
+from openai import OpenAI
+from torch import nn
 from werkzeug.utils import secure_filename
 from ultralytics import YOLO
 import json
@@ -32,6 +37,33 @@ LLM_CONFIG = {
     "api_key": "",  # API密钥，如果使用API
 }
 
+def input_with_timeout(prompt, timeout=10, default="2"):
+    """
+    跨平台实现用户输入超时，默认选择 default。
+    Windows + Linux 通用。
+    """
+    result = {"value": default}
+
+    def get_input():
+        try:
+            user_input = input(prompt)
+            if user_input.strip() in ["1", "2"]:
+                result["value"] = user_input.strip()
+        except Exception:
+            pass
+
+    thread = threading.Thread(target=get_input)
+    thread.daemon = True
+    thread.start()
+    thread.join(timeout)
+
+    if result["value"] == default:
+        print(f"\n未在 {timeout} 秒内输入，默认选择 {default}（网络API）")
+    return result["value"]
+
+
+
+
 def setup_llm_config():
     """设置大语言模型配置"""
     print("\n" + "="*50)
@@ -42,9 +74,7 @@ def setup_llm_config():
     print("1. 本地模型 (Ollama)")
     print("2. 网络API (如OpenAI, Azure等)")
 
-    choice = ""
-    while choice not in ["1", "2"]:
-        choice = input("\n请输入选项 (1/2): ").strip()
+    choice = input_with_timeout("\n请输入选项 (1/2): ", timeout=10, default="2")
 
     if choice == "1":
         LLM_CONFIG["model_type"] = "local"
@@ -311,7 +341,7 @@ def chat_ollama():
                     payload = client.chat.completions.create(
                         model="deepseek-chat",
                         messages=[
-                            {"role": "system", "content": "给我用中文回复"},
+                            {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
                             {"role": "user", "content": prompt},
                         ],
                         stream=False
