@@ -466,7 +466,7 @@ def server_error(error):
 # 添加自动打开浏览器的函数
 def open_browser():
     time.sleep(1)  # 等待服务器启动
-    webbrowser.open('http://127.0.0.1:5000')
+    webbrowser.open('http://127.0.0.1:5001')
 
 if __name__ == "__main__":
     # 设置大语言模型配置
@@ -487,4 +487,4 @@ if __name__ == "__main__":
 
     logger.info("Server started")
     # 启动服务器
-    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False) 
+    app.run(host="0.0.0.0", port=5001, debug=True, use_reloader=False) 
