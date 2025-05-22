@@ -1,25 +1,28 @@
-import os
-import re
+# 标准库
+import os, re, json, time, datetime, threading, logging, webbrowser
+
+# 图像与模型
 from PIL import Image
 import torch
 import torchvision.transforms as transforms
+from torch import nn
 from efficientnet_pytorch import EfficientNet
-from flask import Flask, request, jsonify, send_from_directory, session, redirect, url_for, Response
+
+# Flask 与扩展
+from flask import Flask, request, jsonify, send_from_directory, session
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
-import logging
-import webbrowser
-import threading
-import time
+from werkzeug.utils import secure_filename  # 可留作后续上传
+
+# AI 与 NLP
 import requests
 from openai import OpenAI
-from torch import nn
-from flask_sqlalchemy import SQLAlchemy
+
+# 自定义模块
 from models import db, User, Case
-from werkzeug.utils import secure_filename
-from ultralytics import YOLO
-import json
-import datetime
+
+# Word 文档生成
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
