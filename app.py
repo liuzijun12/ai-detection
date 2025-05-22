@@ -14,6 +14,8 @@ import time
 import requests
 from openai import OpenAI
 from torch import nn
+from flask_sqlalchemy import SQLAlchemy
+from models import db, User, Case
 from werkzeug.utils import secure_filename
 from ultralytics import YOLO
 import json
@@ -23,6 +25,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 # 全局配置
 MODEL_PATH = "best_model.pth"  # 训练好的最佳模型
@@ -163,6 +166,63 @@ app = Flask(__name__, static_folder='ai_detection')
 CORS(app, supports_credentials=True)  # 支持跨域请求
 app.secret_key = 'your-secret-key'  # 更换为随机的密钥
 
+
+# 配置 MySQL 数据库连接（连接你容器里的 eye_db）
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/eye_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# 初始化数据库对象
+db.init_app(app)
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"success": False, "message": "用户名和密码不能为空"}), 400
+
+    # 检查用户名是否存在
+    if User.query.filter_by(username=username).first():
+        return jsonify({"success": False, "message": "用户名已存在"}), 409
+
+    # 创建用户
+    new_user = User(username=username, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"success": True, "message": "注册成功"})
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+
+    if not username or not password:
+        return jsonify({"success": False, "message": "用户名和密码不能为空"}), 400
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"success": False, "message": "用户不存在"}), 404
+
+    if user.password != password:
+        return jsonify({"success": False, "message": "密码错误"}), 401
+
+    # 登录成功，设置 session
+    session['logged_in'] = True
+    session['username'] = username
+
+    return jsonify({
+        "success": True,
+        "message": "登录成功",
+        "username": username
+    })
+
+
+
+
 # 添加 session 配置
 app.config.update(
     SESSION_COOKIE_SECURE=False,  # 开发环境设为 False
@@ -215,25 +275,25 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 # 登录接口
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    username = data.get("username")
-    password = data.get("password")
-
-    if username == "admin" and password == "123456":
-        session['logged_in'] = True
-        session['username'] = username
-        return jsonify({
-            "success": True,
-            "message": "登录成功",
-            "username": username
-        })
-    else:
-        return jsonify({
-            "success": False,
-            "message": "用户名或密码错误"
-        }), 401
+# @app.route("/login", methods=["POST"])
+# def login():
+#     data = request.get_json()
+#     username = data.get("username")
+#     password = data.get("password")
+#
+#     if username == "admin" and password == "123456":
+#         session['logged_in'] = True
+#         session['username'] = username
+#         return jsonify({
+#             "success": True,
+#             "message": "登录成功",
+#             "username": username
+#         })
+#     else:
+#         return jsonify({
+#             "success": False,
+#             "message": "用户名或密码错误"
+#         }), 401
 
 @app.route("/logout", methods=["POST"])
 def logout():
@@ -413,6 +473,11 @@ if __name__ == "__main__":
     model = load_model(MODEL_PATH)
     if model is None:
         print("Warning: Running without model. Predictions will not work!")
+
+    with app.app_context():
+        print("🧱 正在建表到 eye_db...")
+        db.create_all()
+        print("✅ 数据库表结构已初始化完毕")
 
     # 在新线程中打开浏览器
     threading.Thread(target=open_browser).start()
