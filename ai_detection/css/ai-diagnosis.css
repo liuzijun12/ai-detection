@@ -999,7 +999,7 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    background: rgba(255, 107, 107, 0.9);
+    background: rgba(255, 77, 79, 0.9);
     padding: 15px 25px;
     border-radius: 8px;
     color: #fff;
@@ -1008,6 +1008,11 @@
     gap: 10px;
     animation: slideIn 0.3s ease;
     z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.error-message i {
+    font-size: 18px;
 }
 
 @keyframes slideIn {
@@ -1056,4 +1061,36 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(41, 151, 228, 0.3);
     background: linear-gradient(135deg, #3aa5f2, #5cd7e7);
+}
+
+/* 成功消息提示样式 */
+.success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(82, 196, 26, 0.9);
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.success-message i {
+    font-size: 18px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 } 

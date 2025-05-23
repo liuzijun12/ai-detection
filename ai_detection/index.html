@@ -5,6 +5,7 @@
     <title>眼部疾病预测中心</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/ai-diagnosis.css">
+    <link rel="stylesheet" href="css/case-list.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 地图相关样式 */
@@ -637,7 +638,8 @@
     }
 
     // 设置用户名
-    document.querySelector('.username').textContent = sessionStorage.getItem('username') || 'admin';
+    const username = sessionStorage.getItem('username') || 'admin';
+    document.querySelector('.avatar span').textContent = username;
 
     // 修改下拉菜单的显示/隐藏逻辑
     function toggleDropdown() {
@@ -655,8 +657,8 @@
     });
 
     function showMedicalRecords() {
-        // 实现查看病例功能
-        console.log('查看病例');
+        // 直接跳转到病例详情页面
+        window.location.href = 'case-detail.html';
     }
 
     function showCheckHistory() {
@@ -671,7 +673,6 @@
 
     function logout() {
         // 实现退出登录功能
-        console.log('退出登录');
         sessionStorage.removeItem('isLoggedIn');
         sessionStorage.removeItem('username');
         window.location.href = 'login.html';
@@ -935,4 +936,124 @@
     display: none !important;
 }
 </style>
+
+<!-- 添加病例列表弹窗 -->
+<div id="caseListPopup" class="case-popup" style="display: none;">
+    <div class="case-popup-header">
+        <div class="case-popup-title">
+            <i class="fas fa-file-medical"></i>
+            我的病例
+        </div>
+        <button class="close-popup" onclick="closeCaseList()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <div id="caseGrid" class="case-grid">
+        <!-- 病例将通过JavaScript动态加载 -->
+    </div>
+    <div class="pagination" id="casePagination">
+        <!-- 分页控件将通过JavaScript动态加载 -->
+    </div>
+</div>
+
+<div id="overlay" class="overlay" style="display: none;"></div>
+
+<script>
+function showCaseList() {
+    document.getElementById('caseListPopup').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    loadCases(1);  // 加载第一页
+}
+
+function closeCaseList() {
+    document.getElementById('caseListPopup').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
+
+async function loadCases(page) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5001/cases?page=${page}`, {
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('获取病例列表失败');
+        }
+
+        const data = await response.json();
+        displayCases(data.cases, data.current_page, data.total_pages);
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('caseGrid').innerHTML = `
+            <div class="no-cases">
+                <i class="fas fa-exclamation-circle"></i>
+                加载病例失败，请稍后重试
+            </div>
+        `;
+    }
+}
+
+function displayCases(cases, currentPage, totalPages) {
+    const caseGrid = document.getElementById('caseGrid');
+    const pagination = document.getElementById('casePagination');
+
+    if (cases.length === 0) {
+        caseGrid.innerHTML = `
+            <div class="no-cases">
+                <i class="fas fa-folder-open"></i>
+                暂无病例记录
+            </div>
+        `;
+        pagination.style.display = 'none';
+        return;
+    }
+
+    caseGrid.innerHTML = cases.map(caseItem => `
+        <div class="case-item" onclick="viewCaseDetail(${caseItem.id})">
+            <div class="case-images">
+                <img src="${caseItem.left_eye_image}" alt="左眼" class="case-image">
+                <img src="${caseItem.right_eye_image}" alt="右眼" class="case-image">
+            </div>
+            <div class="case-info">
+                <div class="case-date">${new Date(caseItem.created_at).toLocaleString()}</div>
+                <div class="case-description">${caseItem.description}</div>
+            </div>
+        </div>
+    `).join('');
+
+    // 更新分页
+    pagination.style.display = 'flex';
+    pagination.innerHTML = `
+        <button onclick="loadCases(1)" ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fas fa-angle-double-left"></i>
+        </button>
+        <button onclick="loadCases(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+            <i class="fas fa-angle-left"></i>
+        </button>
+        <button disabled>${currentPage} / ${totalPages}</button>
+        <button onclick="loadCases(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fas fa-angle-right"></i>
+        </button>
+        <button onclick="loadCases(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>
+            <i class="fas fa-angle-double-right"></i>
+        </button>
+    `;
+}
+
+function viewCaseDetail(caseId) {
+    window.location.href = `case-detail.html?id=${caseId}`;
+}
+
+// 添加点击事件监听器
+document.addEventListener('DOMContentLoaded', () => {
+    // 为"我的病例"按钮添加点击事件
+    const caseListButton = document.querySelector('[onclick="showCaseList()"]');
+    if (caseListButton) {
+        caseListButton.addEventListener('click', showCaseList);
+    }
+
+    // 点击遮罩层关闭弹窗
+    document.getElementById('overlay').addEventListener('click', closeCaseList);
+});
+</script>
 

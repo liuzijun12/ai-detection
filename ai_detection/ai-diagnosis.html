@@ -515,6 +515,28 @@
             text-align: right;
             font-weight: bold;
         }
+        .success-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(40, 167, 69, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -20px); }
+            10% { opacity: 1; transform: translate(-50%, 0); }
+            90% { opacity: 1; transform: translate(-50%, 0); }
+            100% { opacity: 0; transform: translate(-50%, -20px); }
+        }
     </style>
 </head>
 <body>
@@ -936,11 +958,11 @@
 
         // 并行发送两个请求
         Promise.all([
-            fetch('http://127.0.0.1:5000/predict', {
+            fetch('http://127.0.0.1:5001/predict', {
                 method: 'POST',
                 body: leftFormData
             }).then(response => response.json()),
-            fetch('http://127.0.0.1:5000/predict', {
+            fetch('http://127.0.0.1:5001/predict', {
                 method: 'POST',
                 body: rightFormData
             }).then(response => response.json())
@@ -948,6 +970,41 @@
         .then(([leftData, rightData]) => {
             hideLoading();
             displayResults(leftData.predictions, rightData.predictions);
+
+            // 准备要保存的数据
+            const detectionData = {
+                description: generateDescription(leftData.predictions, rightData.predictions),
+                left_eye: {
+                    image: document.getElementById('leftEyePreviewImg').src,
+                    results: leftData.predictions
+                },
+                right_eye: {
+                    image: document.getElementById('rightEyePreviewImg').src,
+                    results: rightData.predictions
+                }
+            };
+
+            // 调用保存接口
+            fetch('http://127.0.0.1:5001/save_detection', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include', // 包含cookies以获取session
+                body: JSON.stringify(detectionData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showSuccess('检测结果已保存');
+                } else {
+                    showError(data.error || '保存失败');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving detection:', error);
+                showError('保存检测结果时出错');
+            });
         })
         .catch(error => {
             hideLoading();
@@ -1099,16 +1156,13 @@
         // 显示加载状态
         const loadingMessage = addLoadingMessage();
 
-        // 调用后端API
-        fetch('http://127.0.0.1:5000/chat_ollama', {
+        // 发送消息到后端
+        fetch('http://localhost:5001/chat_ollama', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                prompt: message
-                // 不再指定模型，使用后端配置的模型
-            })
+            body: JSON.stringify({ prompt: message })
         })
         .then(response => {
             if (!response.ok) {
@@ -1498,6 +1552,64 @@
         content += '</ul>';
         
         return content;
+    }
+
+    // 添加生成描述的函数
+    function generateDescription(leftPredictions, rightPredictions) {
+        let description = '检测结果概述：\n';
+        
+        // 获取最高概率的疾病
+        const getTopDisease = (predictions) => {
+            return Object.entries(predictions)
+                .sort(([,a], [,b]) => b - a)
+                .filter(([disease, prob]) => prob > 0.3) // 只考虑概率大于30%的疾病
+                .map(([disease, prob]) => ({
+                    name: diseaseNames[disease] || '其他疾病',
+                    probability: prob
+                }));
+        };
+
+        const leftTopDiseases = getTopDisease(leftPredictions);
+        const rightTopDiseases = getTopDisease(rightPredictions);
+
+        // 添加左眼描述
+        description += '\n左眼：';
+        if (leftTopDiseases.length > 0) {
+            description += leftTopDiseases
+                .map(d => `${d.name}(${(d.probability * 100).toFixed(1)}%)`)
+                .join('、');
+        } else {
+            description += '未发现明显异常';
+        }
+
+        // 添加右眼描述
+        description += '\n右眼：';
+        if (rightTopDiseases.length > 0) {
+            description += rightTopDiseases
+                .map(d => `${d.name}(${(d.probability * 100).toFixed(1)}%)`)
+                .join('、');
+        } else {
+            description += '未发现明显异常';
+        }
+
+        // 添加建议
+        description += '\n\n建议：';
+        if (leftTopDiseases.length > 0 || rightTopDiseases.length > 0) {
+            description += '建议及时就医进行详细检查，进行专业医生诊断。';
+        } else {
+            description += '暂未发现明显异常，建议定期进行眼科检查，保持良好的用眼习惯。';
+        }
+
+        return description;
+    }
+
+    // 添加成功提示函数
+    function showSuccess(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        document.body.appendChild(successDiv);
+        setTimeout(() => successDiv.remove(), 3000);
     }
     </script>
 </body>

@@ -26,6 +26,10 @@ from models import db, User, Case
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
+import base64
+import uuid
+from datetime import timedelta
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -42,6 +46,39 @@ LLM_CONFIG = {
     "api_url": "",  # API URL，如果使用API
     "api_key": "",  # API密钥，如果使用API
 }
+
+# 添加图片保存配置
+UPLOAD_FOLDER = os.path.join('ai_detection', 'staticImage')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def save_base64_image(base64_string, folder):
+    """保存Base64图片并返回文件路径"""
+    try:
+        # 从Base64字符串中提取实际的图片数据
+        if ',' in base64_string:
+            base64_string = base64_string.split(',')[1]
+        
+        # 解码Base64数据
+        image_data = base64.b64decode(base64_string)
+        
+        # 生成唯一的文件名
+        filename = f"{uuid.uuid4().hex}.png"
+        
+        # 确保目录存在
+        os.makedirs(folder, exist_ok=True)
+        
+        # 保存文件
+        filepath = os.path.join(folder, filename)
+        with open(filepath, 'wb') as f:
+            f.write(image_data)
+        
+        return filepath
+    except Exception as e:
+        print(f"Error saving base64 image: {e}")
+        return None
 
 def input_with_timeout(prompt, timeout=10, default="2"):
     """
@@ -213,9 +250,11 @@ def login():
     if user.password != password:
         return jsonify({"success": False, "message": "密码错误"}), 401
 
-    # 登录成功，设置 session
+    # 设置session
     session['logged_in'] = True
     session['username'] = username
+    session['user_id'] = user.id
+    session.permanent = True  # 设置session持久化
 
     return jsonify({
         "success": True,
@@ -223,15 +262,33 @@ def login():
         "username": username
     })
 
+# 添加session检查接口
+@app.route("/check_session")
+def check_session():
+    return jsonify({
+        "logged_in": session.get('logged_in', False),
+        "username": session.get('username'),
+        "user_id": session.get('user_id')
+    })
 
-
-
-# 添加 session 配置
-app.config.update(
-    SESSION_COOKIE_SECURE=False,  # 开发环境设为 False
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE='Lax'
-)
+# 修改app配置
+def configure_app(app):
+    # Session配置
+    app.config.update(
+        SESSION_COOKIE_SECURE=False,  # 开发环境设为False，生产环境设为True
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE='Lax',
+        PERMANENT_SESSION_LIFETIME=timedelta(days=7)  # session有效期7天
+    )
+    
+    # 数据库配置
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/eye_db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
+    # 设置随机密钥
+    app.secret_key = os.urandom(24)
+    
+    return app
 
 # 路由：服务静态文件
 @app.route('/')
@@ -277,31 +334,41 @@ def predict():
         logger.error("Error during prediction: %s", str(e))
         return jsonify({"error": str(e)}), 500
 
-# 登录接口
-# @app.route("/login", methods=["POST"])
-# def login():
-#     data = request.get_json()
-#     username = data.get("username")
-#     password = data.get("password")
-#
-#     if username == "admin" and password == "123456":
-#         session['logged_in'] = True
-#         session['username'] = username
-#         return jsonify({
-#             "success": True,
-#             "message": "登录成功",
-#             "username": username
-#         })
-#     else:
-#         return jsonify({
-#             "success": False,
-#             "message": "用户名或密码错误"
-#         }), 401
-
 @app.route("/logout", methods=["POST"])
 def logout():
     session.clear()
     return jsonify({"success": True, "message": "登出成功"})
+
+@app.route("/cases")
+@login_required
+def get_cases():
+    page = request.args.get('page', 1, type=int)
+    per_page = 10  # 每页显示10条记录
+    
+    # 获取当前用户的病例
+    user_id = session.get('user_id')
+    pagination = Case.query.filter_by(user_id=user_id)\
+        .order_by(Case.created_at.desc())\
+        .paginate(page=page, per_page=per_page, error_out=False)
+    
+    cases = []
+    for case in pagination.items:
+        case_data = {
+            'id': case.id,
+            'created_at': case.created_at.isoformat(),
+            'description': case.description,
+            'left_eye_image': case.left_eye_image,
+            'right_eye_image': case.right_eye_image,
+            'left_eye_result': case.left_eye_result,
+            'right_eye_result': case.right_eye_result
+        }
+        cases.append(case_data)
+    
+    return jsonify({
+        'cases': cases,
+        'total_pages': pagination.pages,
+        'current_page': page
+    })
 
 @app.route("/chat_ollama", methods=["POST"])
 def chat_ollama():
@@ -468,10 +535,121 @@ def open_browser():
     time.sleep(1)  # 等待服务器启动
     webbrowser.open('http://127.0.0.1:5001')
 
+@app.route("/save_detection", methods=["POST"])
+@login_required
+def save_detection():
+    try:
+        data = request.get_json()
+        print("Received data for saving:", {
+            'description': data.get('description'),
+            'has_left_eye': 'left_eye' in data,
+            'has_right_eye': 'right_eye' in data
+        })
+        
+        # 获取当前用户ID
+        user_id = session.get('user_id')
+        print(f"Current session data: {dict(session)}")  # 调试信息
+        
+        if not user_id:
+            print("No user_id found in session")  # 调试信息
+            return jsonify({"error": "User not found"}), 401
+
+        # 保存左眼图片
+        left_eye_image = data.get('left_eye', {}).get('image')
+        left_eye_path = None
+        if left_eye_image:
+            print("Saving left eye image...")  # 调试信息
+            saved_path = save_base64_image(left_eye_image, UPLOAD_FOLDER)
+            if saved_path:
+                # 转换为相对路径
+                left_eye_path = os.path.relpath(saved_path, 'ai_detection')
+                print(f"Left eye image saved to: {left_eye_path}")  # 调试信息
+            else:
+                print("Failed to save left eye image")  # 调试信息
+
+        # 保存右眼图片
+        right_eye_image = data.get('right_eye', {}).get('image')
+        right_eye_path = None
+        if right_eye_image:
+            print("Saving right eye image...")  # 调试信息
+            saved_path = save_base64_image(right_eye_image, UPLOAD_FOLDER)
+            if saved_path:
+                # 转换为相对路径
+                right_eye_path = os.path.relpath(saved_path, 'ai_detection')
+                print(f"Right eye image saved to: {right_eye_path}")  # 调试信息
+            else:
+                print("Failed to save right eye image")  # 调试信息
+
+        print(f"Creating new case for user {user_id}")  # 调试信息
+
+        # 创建新的病例记录
+        new_case = Case(
+            user_id=user_id,
+            description=data.get('description', ''),
+            left_eye_image=left_eye_path,
+            right_eye_image=right_eye_path,
+            left_eye_result=json.dumps(data.get('left_eye', {}).get('results', {})),
+            right_eye_result=json.dumps(data.get('right_eye', {}).get('results', {})),
+            created_at=datetime.datetime.utcnow()
+        )
+
+        # 保存到数据库
+        try:
+            db.session.add(new_case)
+            db.session.commit()
+            print(f"Successfully saved case with ID: {new_case.id}")  # 调试信息
+        except Exception as db_error:
+            print(f"Database error: {str(db_error)}")  # 调试信息
+            db.session.rollback()
+            raise
+
+        return jsonify({
+            "success": True,
+            "message": "检测结果已保存",
+            "case_id": new_case.id
+        })
+
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error saving detection: {str(e)}")  # 调试信息
+        return jsonify({"error": str(e)}), 500
+
+# 添加静态文件服务路由
+@app.route('/staticImage/<path:filename>')
+def serve_static_image(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+@app.route("/case/<int:case_id>")
+@login_required
+def get_case(case_id):
+    try:
+        # 获取当前用户的病例
+        user_id = session.get('user_id')
+        case = Case.query.filter_by(id=case_id, user_id=user_id).first()
+        
+        if not case:
+            return jsonify({"error": "病例不存在或无权访问"}), 404
+
+        return jsonify({
+            "id": case.id,
+            "created_at": case.created_at.isoformat(),
+            "description": case.description,
+            "left_eye_image": case.left_eye_image,
+            "right_eye_image": case.right_eye_image,
+            "left_eye_result": case.left_eye_result,
+            "right_eye_result": case.right_eye_result
+        })
+    except Exception as e:
+        print(f"Error getting case: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 if __name__ == "__main__":
+    # 配置应用
+    app = configure_app(app)
+    
     # 设置大语言模型配置
     setup_llm_config()
-
+    
     # 加载眼部疾病预测模型
     model = load_model(MODEL_PATH)
     if model is None:

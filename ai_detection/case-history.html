@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>病例记录 - 眼部疾病预测中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f0f2f5;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .header {
+            background: #0d325f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .back-button {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .case-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-header {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .case-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .case-images {
+            display: flex;
+            padding: 15px;
+            gap: 10px;
+        }
+
+        .eye-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .eye-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .eye-label {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .case-results {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .result-item {
+            margin-bottom: 10px;
+        }
+
+        .result-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0d325f;
+        }
+
+        .probability-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .probability-fill {
+            height: 100%;
+            background: #2997e4;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .high-risk {
+            background: #ff4d4f;
+        }
+
+        .medium-risk {
+            background: #faad14;
+        }
+
+        .low-risk {
+            background: #52c41a;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .page-button {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-button:hover {
+            background: #f0f2f5;
+        }
+
+        .page-button.active {
+            background: #2997e4;
+            color: white;
+            border-color: #2997e4;
+        }
+
+        @media (max-width: 768px) {
+            .case-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-history"></i> 病例记录</h1>
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> 返回首页
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="case-list" id="caseList">
+            <!-- 病例卡片将通过JavaScript动态加载 -->
+        </div>
+
+        <div class="pagination" id="pagination">
+            <!-- 分页按钮将通过JavaScript动态加载 -->
+        </div>
+    </div>
+
+    <script>
+        // 检查登录状态
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // 获取病例列表
+        async function fetchCases(page = 1) {
+            try {
+                const response = await fetch(`http://localhost:5001/cases?page=${page}`, {
+                    credentials: 'include'
+                });
+                
+                if (!response.ok) {
+                    throw new Error('获取病例失败');
+                }
+
+                const data = await response.json();
+                displayCases(data.cases);
+                setupPagination(data.total_pages, page);
+            } catch (error) {
+                console.error('Error:', error);
+                showEmptyState('获取病例记录失败，请稍后重试');
+            }
+        }
+
+        // 显示病例列表
+        function displayCases(cases) {
+            const caseList = document.getElementById('caseList');
+            
+            if (!cases || cases.length === 0) {
+                showEmptyState('暂无病例记录');
+                return;
+            }
+
+            caseList.innerHTML = cases.map(caseItem => `
+                <div class="case-card">
+                    <div class="case-header">
+                        <div class="case-date">
+                            <i class="far fa-calendar"></i> ${new Date(caseItem.created_at).toLocaleString()}
+                        </div>
+                    </div>
+                    <div class="case-images">
+                        <div class="eye-image">
+                            <img src="${caseItem.left_eye_image}" alt="左眼图像">
+                            <div class="eye-label">左眼</div>
+                        </div>
+                        <div class="eye-image">
+                            <img src="${caseItem.right_eye_image}" alt="右眼图像">
+                            <div class="eye-label">右眼</div>
+                        </div>
+                    </div>
+                    <div class="case-results">
+                        <div class="result-item">
+                            <div class="result-title">左眼检测结果</div>
+                            ${generateResultBars(caseItem.left_eye_result)}
+                        </div>
+                        <div class="result-item">
+                            <div class="result-title">右眼检测结果</div>
+                            ${generateResultBars(caseItem.right_eye_result)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 生成结果概率条
+        function generateResultBars(results) {
+            if (!results) return '<p>无检测结果</p>';
+            
+            try {
+                const resultsObj = typeof results === 'string' ? JSON.parse(results) : results;
+                return Object.entries(resultsObj)
+                    .map(([disease, probability]) => {
+                        const percentage = (probability * 100).toFixed(2);
+                        const riskClass = percentage >= 50 ? 'high-risk' : 
+                                        percentage >= 30 ? 'medium-risk' : 'low-risk';
+                        return `
+                            <div class="probability-item">
+                                <div class="disease-name">${getDiseaseName(disease)}: ${percentage}%</div>
+                                <div class="probability-bar">
+                                    <div class="probability-fill ${riskClass}" 
+                                         style="width: ${percentage}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+            } catch (e) {
+                console.error('Error parsing results:', e);
+                return '<p>结果解析错误</p>';
+            }
+        }
+
+        // 获取疾病名称
+        function getDiseaseName(code) {
+            const diseaseNames = {
+                'G': '青光眼',
+                'C': '白内障',
+                'A': '年龄相关性黄斑变性',
+                'H': '高血压型眼病',
+                'D': '糖尿病型眼病',
+                'M': '近视',
+                'N': '正常',
+                'U': '其他疾病'
+            };
+            return diseaseNames[code] || code;
+        }
+
+        // 显示空状态
+        function showEmptyState(message) {
+            const caseList = document.getElementById('caseList');
+            caseList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-folder-open"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+
+        // 设置分页
+        function setupPagination(totalPages, currentPage) {
+            const pagination = document.getElementById('pagination');
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+
+            let paginationHTML = '';
+            
+            // 上一页按钮
+            paginationHTML += `
+                <button class="page-button" 
+                        onclick="fetchCases(${currentPage - 1})"
+                        ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            `;
+
+            // 页码按钮
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <button class="page-button ${i === currentPage ? 'active' : ''}"
+                            onclick="fetchCases(${i})">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            // 下一页按钮
+            paginationHTML += `
+                <button class="page-button" 
+                        onclick="fetchCases(${currentPage + 1})"
+                        ${currentPage === totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            `;
+
+            pagination.innerHTML = paginationHTML;
+        }
+
+        // 初始加载
+        fetchCases();
+    </script>
+</body>
+</html> 

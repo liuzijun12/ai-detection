@@ -13,7 +13,10 @@ class Case(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     description = db.Column(db.Text)
-    image_path = db.Column(db.String(255))
+    left_eye_image = db.Column(db.String(255))
+    right_eye_image = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    left_eye_result = db.Column(db.Text)  # 存储JSON格式的检测结果
+    right_eye_result = db.Column(db.Text)  # 存储JSON格式的检测结果
 
     user = db.relationship('User', backref=db.backref('cases', lazy=True))
