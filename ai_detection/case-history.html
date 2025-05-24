@@ -138,13 +138,17 @@
 
         .empty-state {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             color: #666;
         }
 
         .empty-state i {
             font-size: 48px;
             color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .empty-state p {
             margin-bottom: 20px;
         }
 
@@ -174,6 +178,47 @@
             border-color: #2997e4;
         }
 
+        .case-description {
+            padding: 10px;
+            margin-top: 10px;
+            background: rgba(41,151,228,0.05);
+            border-radius: 6px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .probability-item {
+            margin-bottom: 8px;
+        }
+
+        .disease-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .start-check-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #2997e4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .start-check-btn:hover {
+            background: #2080c7;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 768px) {
             .case-list {
                 grid-template-columns: 1fr;
@@ -201,15 +246,17 @@
 
     <script>
         // 检查登录状态
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
+        function checkLoginStatus() {
+            if (!sessionStorage.getItem('isLoggedIn')) {
+                window.location.href = 'login.html';
+            }
         }
 
         // 获取病例列表
         async function fetchCases(page = 1) {
             try {
-                const response = await fetch(`http://localhost:5001/cases?page=${page}`, {
-                    credentials: 'include'
+                const response = await fetch(`/cases?page=${page}`, {
+                    credentials: 'include'  // 确保发送 cookies
                 });
                 
                 if (!response.ok) {
@@ -218,7 +265,7 @@
 
                 const data = await response.json();
                 displayCases(data.cases);
-                setupPagination(data.total_pages, page);
+                setupPagination(data.total_pages, data.current_page);
             } catch (error) {
                 console.error('Error:', error);
                 showEmptyState('获取病例记录失败，请稍后重试');
@@ -234,66 +281,52 @@
                 return;
             }
 
-            caseList.innerHTML = cases.map(caseItem => `
-                <div class="case-card">
-                    <div class="case-header">
-                        <div class="case-date">
-                            <i class="far fa-calendar"></i> ${new Date(caseItem.created_at).toLocaleString()}
+            caseList.innerHTML = cases.map(caseItem => {
+                // 解析检测结果
+                const leftEyeResults = JSON.parse(caseItem.left_eye_result || '{}');
+                const rightEyeResults = JSON.parse(caseItem.right_eye_result || '{}');
+
+                return `
+                    <div class="case-card">
+                        <div class="case-header">
+                            <div class="case-date">
+                                <i class="far fa-calendar"></i> ${new Date(caseItem.created_at).toLocaleString()}
+                            </div>
+                        </div>
+                        <div class="case-images">
+                            <div class="eye-image">
+                                <img src="${caseItem.left_eye_image}" alt="左眼图像" onerror="this.src='image/placeholder.png'">
+                                <div class="eye-label">左眼</div>
+                            </div>
+                            <div class="eye-image">
+                                <img src="${caseItem.right_eye_image}" alt="右眼图像" onerror="this.src='image/placeholder.png'">
+                                <div class="eye-label">右眼</div>
+                            </div>
+                        </div>
+                        <div class="case-results">
+                            <div class="result-item">
+                                <div class="result-title">左眼检测结果</div>
+                                ${generateResultBars(leftEyeResults)}
+                            </div>
+                            <div class="result-item">
+                                <div class="result-title">右眼检测结果</div>
+                                ${generateResultBars(rightEyeResults)}
+                            </div>
+                            <div class="case-description">
+                                <p>${caseItem.description || '无描述'}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="case-images">
-                        <div class="eye-image">
-                            <img src="${caseItem.left_eye_image}" alt="左眼图像">
-                            <div class="eye-label">左眼</div>
-                        </div>
-                        <div class="eye-image">
-                            <img src="${caseItem.right_eye_image}" alt="右眼图像">
-                            <div class="eye-label">右眼</div>
-                        </div>
-                    </div>
-                    <div class="case-results">
-                        <div class="result-item">
-                            <div class="result-title">左眼检测结果</div>
-                            ${generateResultBars(caseItem.left_eye_result)}
-                        </div>
-                        <div class="result-item">
-                            <div class="result-title">右眼检测结果</div>
-                            ${generateResultBars(caseItem.right_eye_result)}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         // 生成结果概率条
         function generateResultBars(results) {
-            if (!results) return '<p>无检测结果</p>';
-            
-            try {
-                const resultsObj = typeof results === 'string' ? JSON.parse(results) : results;
-                return Object.entries(resultsObj)
-                    .map(([disease, probability]) => {
-                        const percentage = (probability * 100).toFixed(2);
-                        const riskClass = percentage >= 50 ? 'high-risk' : 
-                                        percentage >= 30 ? 'medium-risk' : 'low-risk';
-                        return `
-                            <div class="probability-item">
-                                <div class="disease-name">${getDiseaseName(disease)}: ${percentage}%</div>
-                                <div class="probability-bar">
-                                    <div class="probability-fill ${riskClass}" 
-                                         style="width: ${percentage}%"></div>
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-            } catch (e) {
-                console.error('Error parsing results:', e);
-                return '<p>结果解析错误</p>';
+            if (!results || Object.keys(results).length === 0) {
+                return '<p>无检测结果</p>';
             }
-        }
 
-        // 获取疾病名称
-        function getDiseaseName(code) {
             const diseaseNames = {
                 'G': '青光眼',
                 'C': '白内障',
@@ -302,9 +335,27 @@
                 'D': '糖尿病型眼病',
                 'M': '近视',
                 'N': '正常',
-                'U': '其他疾病'
+                'O': '其他'
             };
-            return diseaseNames[code] || code;
+
+            return Object.entries(results)
+                .sort(([,a], [,b]) => b - a)  // 按概率降序排序
+                .map(([disease, probability]) => {
+                    const percentage = (probability * 100).toFixed(2);
+                    const riskClass = percentage >= 50 ? 'high-risk' : 
+                                    percentage >= 30 ? 'medium-risk' : 'low-risk';
+                    return `
+                        <div class="probability-item">
+                            <div class="disease-name">
+                                ${diseaseNames[disease] || disease}: ${percentage}%
+                            </div>
+                            <div class="probability-bar">
+                                <div class="probability-fill ${riskClass}" 
+                                     style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
         }
 
         // 显示空状态
@@ -314,6 +365,10 @@
                 <div class="empty-state">
                     <i class="fas fa-folder-open"></i>
                     <p>${message}</p>
+                    <button onclick="window.location.href='ai-diagnosis.html'" class="start-check-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        开始检测
+                    </button>
                 </div>
             `;
         }
@@ -326,6 +381,7 @@
                 return;
             }
 
+            pagination.style.display = 'flex';
             let paginationHTML = '';
             
             // 上一页按钮
@@ -359,8 +415,11 @@
             pagination.innerHTML = paginationHTML;
         }
 
-        // 初始加载
-        fetchCases();
+        // 页面加载时检查登录状态并加载病例
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            fetchCases();
+        });
     </script>
 </body>
 </html> 

@@ -958,13 +958,15 @@
 
         // 并行发送两个请求
         Promise.all([
-            fetch('http://127.0.0.1:5001/predict', {
+            fetch('/predict', {
                 method: 'POST',
-                body: leftFormData
+                body: leftFormData,
+                credentials: 'include'
             }).then(response => response.json()),
-            fetch('http://127.0.0.1:5001/predict', {
+            fetch('/predict', {
                 method: 'POST',
-                body: rightFormData
+                body: rightFormData,
+                credentials: 'include'
             }).then(response => response.json())
         ])
         .then(([leftData, rightData]) => {
@@ -985,7 +987,7 @@
             };
 
             // 调用保存接口
-            fetch('http://127.0.0.1:5001/save_detection', {
+            fetch('/save_detection', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1157,11 +1159,12 @@
         const loadingMessage = addLoadingMessage();
 
         // 发送消息到后端
-        fetch('http://localhost:5001/chat_ollama', {
+        fetch('/chat_ollama', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({ prompt: message })
         })
         .then(response => {
@@ -1557,7 +1560,7 @@
     // 添加生成描述的函数
     function generateDescription(leftPredictions, rightPredictions) {
         let description = '检测结果概述：\n';
-        
+
         // 获取最高概率的疾病
         const getTopDisease = (predictions) => {
             return Object.entries(predictions)

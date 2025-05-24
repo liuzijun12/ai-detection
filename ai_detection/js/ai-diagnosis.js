@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         showLoading();
 
+        fetch('http://localhost:5001/predict', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.status === 401 ? '请先登录' : '预测失败');
         try {
             // 1. 首先调用预测接口
             const predictResponse = await fetch('http://localhost:5001/predict', {
@@ -74,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             const predictData = await predictResponse.json();
-            
+
             if (predictData.error) {
                 showError(predictData.error);
                 return;
@@ -245,11 +253,11 @@ async function startDiagnosis() {
         // 1. 获取图片的base64数据
         const base64Image = await getBase64FromFile(file);
         console.log('Image converted to base64'); // 调试信息
-        
+
         // 2. 调用预测接口
         const formData = new FormData();
         formData.append('file', file);
-        
+
         console.log('Sending prediction request...'); // 调试信息
         const predictResponse = await fetch('http://localhost:5001/predict', {
             method: 'POST',
@@ -268,7 +276,7 @@ async function startDiagnosis() {
 
         const predictData = await predictResponse.json();
         console.log('Prediction results:', predictData); // 调试信息
-        
+
         if (predictData.error) {
             throw new Error(predictData.error);
         }
@@ -377,21 +385,21 @@ function showSuccess(message) {
 function displayResults(predictions) {
     const resultSection = document.getElementById('resultSection');
     const leftProbabilitiesContainer = document.getElementById('leftEyeProbabilities');
-    
+
     // 清空之前的结果
     leftProbabilitiesContainer.innerHTML = '';
-    
+
     // 设置图片源
     const leftEyeImg = document.getElementById('leftEyeResult');
     const uploadedImage = document.getElementById('previewImg');
     if (uploadedImage) {
         leftEyeImg.src = uploadedImage.src;
     }
-    
+
     // 处理预测结果
     const sortedPredictions = Object.entries(predictions)
         .sort(([, a], [, b]) => b - a);
-    
+
     const diseaseNames = {
         'N': '正常',
         'D': '糖尿病型眼病',
@@ -402,13 +410,13 @@ function displayResults(predictions) {
         'M': '近视',
         'O': '其他疾病'
     };
-    
+
     sortedPredictions.forEach(([disease, probability]) => {
         const probabilityBar = document.createElement('div');
         probabilityBar.className = 'probability-bar';
         const percentage = (probability * 100).toFixed(2);
         const barColor = getBarColor(probability);
-        
+
         probabilityBar.innerHTML = `
             <div class="disease-name">${diseaseNames[disease] || disease}</div>
             <div class="probability-track">
@@ -418,7 +426,7 @@ function displayResults(predictions) {
         `;
         leftProbabilitiesContainer.appendChild(probabilityBar);
     });
-    
+
     resultSection.style.display = 'block';
     document.getElementById('previewActions').style.display = 'none';
 }
@@ -426,7 +434,7 @@ function displayResults(predictions) {
 function generateDescription(predictions) {
     const highestPrediction = Object.entries(predictions)
         .sort(([, a], [, b]) => b - a)[0];
-    
+
     const diseaseNames = {
         'N': '正常',
         'D': '糖尿病型眼病',
@@ -449,4 +457,4 @@ function getBarColor(probability) {
     } else {
         return '#52c41a'; // 低风险 - 绿色
     }
-} 
+}

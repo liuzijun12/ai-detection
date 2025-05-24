@@ -203,12 +203,23 @@ def preprocess_image(image):
     return transform(image).unsqueeze(0).to(DEVICE)
 
 app = Flask(__name__, static_folder='ai_detection')
-CORS(app, supports_credentials=True)  # 支持跨域请求
+CORS(app, 
+     supports_credentials=True,  # 支持凭证
+     resources={
+         r"/*": {
+             "origins": ["http://localhost:5001", "http://127.0.0.1:5001"],
+             "methods": ["GET", "POST", "OPTIONS"],
+             "allow_headers": ["Content-Type", "Authorization"],
+             "expose_headers": ["Content-Range", "X-Content-Range"],
+             "supports_credentials": True
+         }
+     }
+)  # 支持跨域请求
 app.secret_key = 'your-secret-key'  # 更换为随机的密钥
 
 
 # 配置 MySQL 数据库连接（连接你容器里的 eye_db）
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/eye_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3307/eye_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # 初始化数据库对象
@@ -293,11 +304,15 @@ def configure_app(app):
 # 路由：服务静态文件
 @app.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return send_from_directory('ai_detection', 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    return send_from_directory(app.static_folder, path)
+    try:
+        return send_from_directory('ai_detection', path)
+    except Exception as e:
+        print(f"Error serving static file: {str(e)}")
+        return "File not found", 404
 
 def login_required(f):
     @wraps(f)
@@ -463,21 +478,63 @@ def chat_ollama():
 
                 # 根据不同的API调整请求格式
                 if "deepseek" in LLM_CONFIG["api_url"].lower():
-                    # OpenAI格式
-                    print(LLM_CONFIG["api_url"])
-                    print(LLM_CONFIG["api_key"])
-                    client = OpenAI(api_key="sk-aa19071022fe47f1aaef8a0215749ddc", base_url="https://api.deepseek.com/v1")
+                    # Deepseek API 调用
+                    try:
+                        # 首先尝试使用 OpenAI 客户端
+                        try:
+                            client = OpenAI(
+                                api_key=LLM_CONFIG["api_key"],
+                                base_url="https://api.deepseek.com/v1",
+                                timeout=30,
+                                max_retries=3,
+                                http_client=None
+                            )
 
-                    payload = client.chat.completions.create(
-                        model="deepseek-chat",
-                        messages=[
-                            {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
-                            {"role": "user", "content": prompt},
-                        ],
-                        stream=False
-                    )
-                    ai_response = payload.choices[0].message.content
-                    return jsonify({"response": ai_response})
+                            completion = client.chat.completions.create(
+                                model="deepseek-chat",
+                                messages=[
+                                    {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
+                                    {"role": "user", "content": prompt},
+                                ],
+                                temperature=0.7,
+                                max_tokens=1000
+                            )
+                            ai_response = completion.choices[0].message.content
+                        except Exception as openai_error:
+                            logger.warning(f"OpenAI client failed, trying direct HTTP request: {str(openai_error)}")
+                            # 如果 OpenAI 客户端失败，使用直接的 HTTP 请求
+                            response = requests.post(
+                                "https://api.deepseek.com/v1/chat/completions",
+                                headers={
+                                    "Authorization": f"Bearer {LLM_CONFIG['api_key']}",
+                                    "Content-Type": "application/json"
+                                },
+                                json={
+                                    "model": "deepseek-chat",
+                                    "messages": [
+                                        {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
+                                        {"role": "user", "content": prompt}
+                                    ],
+                                    "temperature": 0.7,
+                                    "max_tokens": 1000
+                                },
+                                timeout=30
+                            )
+                            if response.status_code == 200:
+                                ai_response = response.json()["choices"][0]["message"]["content"]
+                            else:
+                                raise Exception(f"API request failed with status {response.status_code}: {response.text}")
+                        
+                        return jsonify({"response": ai_response})
+                    except Exception as e:
+                        logger.error(f"Deepseek API调用错误: {str(e)}")
+                        return jsonify({
+                            "error": f"AI服务暂时不可用: {str(e)}",
+                            "details": {
+                                "api_url": LLM_CONFIG["api_url"],
+                                "model": "deepseek-chat"
+                            }
+                        }), 500
                 else:
                     # 通用格式
                     payload = {

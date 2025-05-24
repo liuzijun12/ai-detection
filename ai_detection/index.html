@@ -101,6 +101,188 @@
             color: #bad0e2;
             font-size: 14px;
         }
+
+        .panel-content {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .check-record {
+            background: rgba(41,151,228,0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .check-record:hover {
+            transform: translateY(-2px);
+            background: rgba(41,151,228,0.1);
+        }
+
+        .check-images {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .check-image-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .check-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .eye-label {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .check-time {
+            color: #666;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .empty-records {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+
+        .empty-records i {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .empty-records p {
+            margin-bottom: 20px;
+        }
+
+        .right-top {
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+        }
+
+        .right-top .public-title {
+            padding: 15px;
+            margin-bottom: 0;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .title-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 15px;
+        }
+
+        .top5-ul {
+            padding: 0;
+        }
+
+        .top5-ul ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top5-ul li {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(41,151,228,0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .top5-ul li:hover {
+            background: rgba(41,151,228,0.1);
+            transform: translateX(5px);
+        }
+
+        .top5-ul .rank {
+            background: #ff6b6b;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .top5-ul .rank.hot {
+            background: #2997e4;
+        }
+
+        .top5-ul .news-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .top5-ul a {
+            color: #bad0e2;
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .top5-ul a:hover {
+            color: #ffffff;
+        }
+
+        .top5-ul .date {
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* 添加滚动条样式 */
+        .title-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .title-nav::-webkit-scrollbar-track {
+            background: rgba(41,151,228,0.05);
+            border-radius: 2px;
+        }
+
+        .title-nav::-webkit-scrollbar-thumb {
+            background: rgba(41,151,228,0.2);
+            border-radius: 2px;
+        }
+
+        .title-nav::-webkit-scrollbar-thumb:hover {
+            background: rgba(41,151,228,0.3);
+        }
     </style>
 </head>
 <body>
@@ -146,16 +328,8 @@
                         </button>
                     </div>
                 </div>
-                <div class="panel-content">
-                    <div class="empty-state">
-                        <i class="fas fa-history"></i>
-                        <h3>暂无检查记录</h3>
-                        <p>您还没有进行过任何检查，请先进行眼部检测。</p>
-                        <button class="start-check-btn">
-                            <i class="fas fa-plus-circle"></i>
-                            开始检测
-                        </button>
-                    </div>
+                <div class="panel-content" id="checkHistoryContent">
+                    <!-- 检查记录将通过JavaScript动态加载 -->
                 </div>
             </div>
         </div>
@@ -238,7 +412,7 @@
                         <span>admin</span>
                     </div>
                     <div class="dropdown-menu">
-                        <a href="javascript:void(0)" class="menu-item" onclick="showPanel('medicalRecords', event)">
+                        <a href="case-history.html" class="menu-item">
                             <i class="fas fa-file-medical"></i>
                             <span>我的病例</span>
                         </a>
@@ -352,45 +526,66 @@
                                 <ul>
                                     <li>
                                         <span class="rank">NEW</span>
-                                        <span class="journal">Nature Med</span>
-                                        <a href="research-article.html?id=1">AI深度学习模型在青光眼早期诊断中的应用研究</a>
-                                        <span class="date">2024-03-18</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=1">AI深度学习模型在青光眼早期诊断中的应用研究</a>
+                                            <span class="date">2024-03-18</span>
+                                        </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
-                                        <span class="journal">Science</span>
-                                        <a href="research-article.html?id=2">新型生物材料在角膜修复中的突破性进展</a>
-                                        <span class="date">2024-03-15</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=2">新型生物材料在角膜修复中的突破性进展</a>
+                                            <span class="date">2024-03-15</span>
+                                        </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
-                                        <span class="journal">Cell</span>
-                                        <a href="research-article.html?id=3">基于干细胞技术的视网膜再生研究新进展</a>
-                                        <span class="date">2024-03-14</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=3">基于干细胞技术的视网膜再生研究新进展</a>
+                                            <span class="date">2024-03-14</span>
+                                        </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
-                                        <span class="journal">JAMA Ophth</span>
-                                        <a href="research-article.html?id=4">近视防控新策略：户外活动与视力保护研究</a>
-                                        <span class="date">2024-03-12</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=4">近视防控新策略：户外活动与视力保护研究</a>
+                                            <span class="date">2024-03-12</span>
+                                        </div>
                                     </li>
                                     <li>
-                                        <span class="rank">HOT</span>
-                                        <span class="journal">Eye Research</span>
-                                        <a href="research-article.html?id=5">人工智能辅助诊断在眼科临床中的应用进展</a>
-                                        <span class="date">2024-03-10</span>
+                                        <span class="rank hot">HOT</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=5">人工智能辅助诊断在眼科临床中的应用进展</a>
+                                            <span class="date">2024-03-10</span>
+                                        </div>
                                     </li>
                                     <li>
-                                        <span class="rank">HOT</span>
-                                        <span class="journal">Ophthalmology</span>
-                                        <a href="research-article.html?id=6">眼部微生物组与眼表疾病的相关性研究</a>
-                                        <span class="date">2024-03-08</span>
+                                        <span class="rank hot">HOT</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=6">眼部微生物组与眼表疾病的相关性研究</a>
+                                            <span class="date">2024-03-08</span>
+                                        </div>
                                     </li>
                                     <li>
-                                        <span class="rank">HOT</span>
-                                        <span class="journal">Retina</span>
-                                        <a href="research-article.html?id=7">基因治疗在遗传性眼病中的临床应用</a>
-                                        <span class="date">2024-03-05</span>
+                                        <span class="rank hot">HOT</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=7">基因治疗在遗传性眼病中的临床应用</a>
+                                            <span class="date">2024-03-05</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="rank hot">HOT</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=8">新一代人工晶状体材料研究进展</a>
+                                            <span class="date">2024-03-03</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="rank hot">HOT</span>
+                                        <div class="news-content">
+                                            <a href="research-article.html?id=9">数字设备使用与青少年视力健康研究</a>
+                                            <span class="date">2024-03-01</span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -420,10 +615,10 @@
                                             <i class="fas fa-chart-line"></i>
                                             <span>近视风险评估</span>
                                         </div>
-                                        <div class="capability-item">
+                                        <!-- <div class="capability-item">
                                             <i class="fas fa-clock"></i>
                                             <span>实时分析</span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <h3>智能眼科检测</h3>
                                     <p>上传眼部图像，获取AI智能分析结果</p>
@@ -657,8 +852,8 @@
     });
 
     function showMedicalRecords() {
-        // 直接跳转到病例详情页面
-        window.location.href = 'case-detail.html';
+        // 直接跳转到病例历史页面
+        window.location.href = 'case-history.html';
     }
 
     function showCheckHistory() {
@@ -1055,5 +1250,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // 点击遮罩层关闭弹窗
     document.getElementById('overlay').addEventListener('click', closeCaseList);
 });
+</script>
+
+<script>
+    // 加载检查记录
+    async function loadCheckHistory() {
+        try {
+            const response = await fetch('/cases', {
+                credentials: 'include'
+            });
+            
+            if (!response.ok) {
+                throw new Error('获取检查记录失败');
+            }
+
+            const data = await response.json();
+            displayCheckHistory(data.cases);
+        } catch (error) {
+            console.error('Error:', error);
+            showEmptyCheckHistory('加载检查记录失败，请稍后重试');
+        }
+    }
+
+    // 显示检查记录
+    function displayCheckHistory(records) {
+        const content = document.getElementById('checkHistoryContent');
+        
+        if (!records || records.length === 0) {
+            showEmptyCheckHistory('暂无检查记录');
+            return;
+        }
+
+        content.innerHTML = records.map(record => `
+            <div class="check-record" onclick="window.location.href='case-history.html'">
+                <div class="check-images">
+                    <div class="check-image-container">
+                        <img src="${record.left_eye_image}" alt="左眼图像" class="check-image" onerror="this.src='image/placeholder.png'">
+                        <div class="eye-label">左眼</div>
+                    </div>
+                    <div class="check-image-container">
+                        <img src="${record.right_eye_image}" alt="右眼图像" class="check-image" onerror="this.src='image/placeholder.png'">
+                        <div class="eye-label">右眼</div>
+                    </div>
+                </div>
+                <div class="check-time">
+                    <i class="far fa-calendar"></i>
+                    ${new Date(record.created_at).toLocaleString()}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // 显示空状态
+    function showEmptyCheckHistory(message) {
+        const content = document.getElementById('checkHistoryContent');
+        content.innerHTML = `
+            <div class="empty-records">
+                <i class="fas fa-history"></i>
+                <p>${message}</p>
+                <button onclick="window.location.href='ai-diagnosis.html'" class="start-check-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    开始检测
+                </button>
+            </div>
+        `;
+    }
+
+    // 在显示检查记录面板时加载数据
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkHistoryPanel = document.getElementById('checkHistory');
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && 
+                    mutation.attributeName === 'style' && 
+                    checkHistoryPanel.style.display === 'block') {
+                    loadCheckHistory();
+                }
+            });
+        });
+
+        observer.observe(checkHistoryPanel, {
+            attributes: true
+        });
+    });
 </script>
 
