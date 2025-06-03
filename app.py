@@ -219,7 +219,7 @@ app.secret_key = 'your-secret-key'  # 更换为随机的密钥
 
 
 # 配置 MySQL 数据库连接（连接你容器里的 eye_db）
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3307/eye_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:123456@localhost:3306/eye_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # 初始化数据库对象
@@ -402,14 +402,15 @@ def chat_ollama():
         
         用户问题：{prompt}"""
 
-        try:
-            # 根据配置选择不同的处理方式
-            if LLM_CONFIG["model_type"] == "local":
+        # 根据配置选择不同的处理方式
+        if LLM_CONFIG["model_type"] == "local":
+            try:
                 # 首先测试Ollama服务是否可用
                 health_check = requests.get("http://localhost:11434/api/tags", timeout=5)
                 if health_check.status_code != 200:
                     logger.error("Ollama服务未运行或无响应")
                     return jsonify({"error": "AI服务未启动，请确保Ollama正在运行"}), 503
+
                 # 调用Ollama API
                 logger.info(f"正在调用Ollama API，使用模型: {model_name}")
                 response = requests.post(
@@ -423,157 +424,87 @@ def chat_ollama():
                     },
                     timeout=30
                 )
-                logger.info(f"Ollama API响应状态码: {response.status_code}")
-                # if response.status_code == 200:
-                #     result = response.json()
-                #     logger.info("成功获取AI响应")
-                #     ai_response = result.get("response", "抱歉，我现在无法回答您的问题。")
-                # else:
-                #     logger.error(f"Ollama API错误响应: {response.text}")
-                #     return jsonify({"error": "AI服务暂时不可用"}), 500
-                try:
-                    if response.status_code == 200:
-                        result_json = response.json()
-                        logger.info(f"本地模型响应: {result_json}")
-                        ai_response = result_json.get("response")
-                        # 检查返回结构，找出实际的字段
-                        # if "response" in result_json:
-                        #     ai_response = result_json["response"]
-                        # else:
-                        #     ai_response = "抱歉，我现在无法回答您的问题。"
-                    else:
-                        logger.error(f"Ollama API错误响应: {response.text}")
-                        return jsonify({"error": "AI服务暂时不可用"}), 500
+            
+                if response.status_code == 200:
+                    result_json = response.json()
+                    logger.info(f"本地模型响应: {result_json}")
+                    ai_response = result_json.get("response", "抱歉，我现在无法回答您的问题。")
                     return jsonify({"response": ai_response})
-                except Exception as e:
-                    logger.error(f"解析本地模型响应时发生错误: {str(e)}")
-                    return jsonify({"error": "解析响应时出错"}), 500
-
-            else:  # LLM_CONFIG["model_type"] == "api"
-                # 调用外部API
-                logger.info(f"正在调用外部API: {LLM_CONFIG['api_url']}")
-                headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": f"Bearer {LLM_CONFIG['api_key']}"
-                }
-                # response = requests.post(...)
-                payload = {
-                    "model": LLM_CONFIG["model_name"],
-                    "messages": [
-                        {"role": "system", "content": "你是一位专业的眼科医生..."},
-                        {"role": "user", "content": prompt}
-                    ],
-                    "temperature": 0.7,
-                    "max_tokens": 1000
-                }
-                response = requests.post(
-                    f"{LLM_CONFIG['api_url'].rstrip('/')}/v1/chat/completions",
-                    headers={
-                        "Authorization": f"Bearer {LLM_CONFIG['api_key']}",
-                        "Content-Type": "application/json"
-                    },
-                    json=payload
-                )
-                ai_response = response.json()["choices"][0]["message"]["content"]
-
-                # 根据不同的API调整请求格式
-                if "deepseek" in LLM_CONFIG["api_url"].lower():
-                    # Deepseek API 调用
-                    try:
-                        # 首先尝试使用 OpenAI 客户端
-                        try:
-                            client = OpenAI(
-                                api_key=LLM_CONFIG["api_key"],
-                                base_url="https://api.deepseek.com/v1",
-                                timeout=30,
-                                max_retries=3,
-                                http_client=None
-                            )
-
-                            completion = client.chat.completions.create(
-                                model="deepseek-chat",
-                                messages=[
-                                    {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
-                                    {"role": "user", "content": prompt},
-                                ],
-                                temperature=0.7,
-                                max_tokens=1000
-                            )
-                            ai_response = completion.choices[0].message.content
-                        except Exception as openai_error:
-                            logger.warning(f"OpenAI client failed, trying direct HTTP request: {str(openai_error)}")
-                            # 如果 OpenAI 客户端失败，使用直接的 HTTP 请求
-                            response = requests.post(
-                                "https://api.deepseek.com/v1/chat/completions",
-                                headers={
-                                    "Authorization": f"Bearer {LLM_CONFIG['api_key']}",
-                                    "Content-Type": "application/json"
-                                },
-                                json={
-                                    "model": "deepseek-chat",
-                                    "messages": [
-                                        {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
-                                        {"role": "user", "content": prompt}
-                                    ],
-                                    "temperature": 0.7,
-                                    "max_tokens": 1000
-                                },
-                                timeout=30
-                            )
-                            if response.status_code == 200:
-                                ai_response = response.json()["choices"][0]["message"]["content"]
-                            else:
-                                raise Exception(f"API request failed with status {response.status_code}: {response.text}")
-                        
-                        return jsonify({"response": ai_response})
-                    except Exception as e:
-                        logger.error(f"Deepseek API调用错误: {str(e)}")
-                        return jsonify({
-                            "error": f"AI服务暂时不可用: {str(e)}",
-                            "details": {
-                                "api_url": LLM_CONFIG["api_url"],
-                                "model": "deepseek-chat"
-                            }
-                        }), 500
                 else:
-                    # 通用格式
-                    payload = {
-                        "model": LLM_CONFIG["model_name"],
-                        "prompt": context,
-                        "temperature": 0.7,
-                        "max_tokens": 1000
+                    logger.error(f"Ollama API错误响应: {response.text}")
+                    return jsonify({"error": "AI服务暂时不可用"}), 500
+
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Ollama API请求错误: {str(e)}")
+                return jsonify({"error": "无法连接到本地AI服务"}), 503
+
+        else:  # LLM_CONFIG["model_type"] == "api"
+            try:
+                # 使用 Deepseek API
+                try:
+                    # 直接使用 requests 发送请求
+                    response = requests.post(
+                        "https://api.deepseek.com/v1/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {LLM_CONFIG['api_key']}",
+                            "Content-Type": "application/json"
+                        },
+                        json={
+                            "model": "deepseek-chat",
+                            "messages": [
+                                {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
+                                {"role": "user", "content": prompt}
+                            ],
+                            "temperature": 0.7,
+                            "max_tokens": 1000
+                        },
+                        timeout=30
+                    )
+
+                    if response.status_code == 200:
+                        ai_response = response.json()["choices"][0]["message"]["content"]
+                    else:
+                        raise Exception(f"API request failed with status {response.status_code}: {response.text}")
+
+                except requests.exceptions.RequestException as e:
+                    # 如果直接请求失败，尝试使用 OpenAI 客户端
+                    logger.warning(f"Direct request failed, trying OpenAI client: {str(e)}")
+                    client = OpenAI(
+                        api_key=LLM_CONFIG["api_key"],
+                        base_url="https://api.deepseek.com/v1"
+                    )
+
+                    completion = client.chat.completions.create(
+                        model="deepseek-chat",
+                        messages=[
+                            {"role": "system", "content": "你是一位专业的眼科医生，请使用中文详细回答用户提出的眼科相关问题。回答中应包括：问题的医学解释、可能的病因、建议的检查方法、是否需要就诊、日常注意事项等。如果问题模糊，可提示用户补充症状信息。禁止自我介绍和重复用户提问。"},
+                            {"role": "user", "content": prompt}
+                        ],
+                        temperature=0.7,
+                        max_tokens=1000
+                    )
+                    ai_response = completion.choices[0].message.content
+
+                # 过滤掉思考过程和固定开头结尾
+                ai_response = re.sub(r'<think>[\s\S]*?</think>', '', ai_response)
+                ai_response = re.sub(r'您好，我是AI眼科助手。您的问题是：.*?。', '', ai_response)
+                ai_response = re.sub(r'我正在为您提供专业的眼科咨询服务。', '', ai_response)
+
+                if not ai_response.strip():
+                    ai_response = "抱歉，我无法理解您的问题，请尝试重新描述您的症状。"
+
+                logger.info(f"过滤后的AI响应内容: {ai_response}")
+                return jsonify({"response": ai_response})
+
+            except Exception as e:
+                logger.error(f"Deepseek API调用错误: {str(e)}")
+                return jsonify({
+                    "error": f"AI服务暂时不可用: {str(e)}",
+                    "details": {
+                        "api_url": LLM_CONFIG["api_url"],
+                        "model": "deepseek-chat"
                     }
-                response = requests.post(
-                    "https://api.deepseek.com/v1/chat/completions",
-                    headers={
-                        "Authorization": f"Bearer {LLM_CONFIG['api_key']}",
-                        "Content-Type": "application/json"
-                    },
-                    json=payload
-                )
-            # 过滤掉思考过程和固定开头结尾
-            ai_response = re.sub(r'<think>[\s\S]*?</think>', '', ai_response)
-            ai_response = re.sub(r'您好，我是AI眼科助手。您的问题是：.*?。', '', ai_response)
-            ai_response = re.sub(r'我正在为您提供专业的眼科咨询服务。', '', ai_response)
-            # ai_response = response.choices[0].message.content
-            # 远程api调用的输出格式
-            ai_response = response.json()["choices"][0]["message"]["content"]
-            # 如果过滤后内容为空，提供默认回复
-
-            if not ai_response.strip():
-                ai_response = "抱歉，我无法理解您的问题，请尝试重新描述您的症状。"
-            logger.info(f"过滤后的AI响应内容: {ai_response}")
-            return jsonify({"response": ai_response})
-
-        except requests.exceptions.ConnectionError:
-            logger.error("无法连接到AI服务")
-            return jsonify({"error": "无法连接到AI服务，请确保服务正在运行"}), 503
-        except requests.exceptions.Timeout:
-            logger.error("请求AI服务超时")
-            return jsonify({"error": "AI服务响应超时，请稍后重试"}), 504
-        except requests.exceptions.RequestException as e:
-            logger.error(f"请求AI服务时发生错误: {str(e)}")
-            return jsonify({"error": "与AI服务通信时发生错误"}), 500
+                }), 500
 
     except Exception as e:
         logger.error(f"处理聊天请求时出错: {str(e)}")
@@ -706,7 +637,7 @@ if __name__ == "__main__":
     
     # 设置大语言模型配置
     setup_llm_config()
-    
+
     # 加载眼部疾病预测模型
     model = load_model(MODEL_PATH)
     if model is None:

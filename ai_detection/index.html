@@ -527,50 +527,50 @@
                                     <li>
                                         <span class="rank">NEW</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=1">AI深度学习模型在青光眼早期诊断中的应用研究</a>
-                                            <span class="date">2024-03-18</span>
+                                        <a href="research-article.html?id=1">AI深度学习模型在青光眼早期诊断中的应用研究</a>
+                                        <span class="date">2024-03-18</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=2">新型生物材料在角膜修复中的突破性进展</a>
-                                            <span class="date">2024-03-15</span>
+                                        <a href="research-article.html?id=2">新型生物材料在角膜修复中的突破性进展</a>
+                                        <span class="date">2024-03-15</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=3">基于干细胞技术的视网膜再生研究新进展</a>
-                                            <span class="date">2024-03-14</span>
+                                        <a href="research-article.html?id=3">基于干细胞技术的视网膜再生研究新进展</a>
+                                        <span class="date">2024-03-14</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank">NEW</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=4">近视防控新策略：户外活动与视力保护研究</a>
-                                            <span class="date">2024-03-12</span>
+                                        <a href="research-article.html?id=4">近视防控新策略：户外活动与视力保护研究</a>
+                                        <span class="date">2024-03-12</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank hot">HOT</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=5">人工智能辅助诊断在眼科临床中的应用进展</a>
-                                            <span class="date">2024-03-10</span>
+                                        <a href="research-article.html?id=5">人工智能辅助诊断在眼科临床中的应用进展</a>
+                                        <span class="date">2024-03-10</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank hot">HOT</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=6">眼部微生物组与眼表疾病的相关性研究</a>
-                                            <span class="date">2024-03-08</span>
+                                        <a href="research-article.html?id=6">眼部微生物组与眼表疾病的相关性研究</a>
+                                        <span class="date">2024-03-08</span>
                                         </div>
                                     </li>
                                     <li>
                                         <span class="rank hot">HOT</span>
                                         <div class="news-content">
-                                            <a href="research-article.html?id=7">基因治疗在遗传性眼病中的临床应用</a>
-                                            <span class="date">2024-03-05</span>
+                                        <a href="research-article.html?id=7">基因治疗在遗传性眼病中的临床应用</a>
+                                        <span class="date">2024-03-05</span>
                                         </div>
                                     </li>
                                     <li>
@@ -1210,7 +1210,7 @@ function displayCases(cases, currentPage, totalPages) {
                 <img src="${caseItem.right_eye_image}" alt="右眼" class="case-image">
             </div>
             <div class="case-info">
-                <div class="case-date">${new Date(caseItem.created_at).toLocaleString()}</div>
+                <div class="case-date">${convertToBeijingTime(caseItem.created_at).toLocaleString()}</div>
                 <div class="case-description">${caseItem.description}</div>
             </div>
         </div>
@@ -1272,6 +1272,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 添加时区转换函数
+    function convertToBeijingTime(date) {
+        const utcDate = new Date(date);
+        return new Date(utcDate.getTime() + (8 * 60 * 60 * 1000));
+    }
+
     // 显示检查记录
     function displayCheckHistory(records) {
         const content = document.getElementById('checkHistoryContent');
@@ -1295,7 +1301,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="check-time">
                     <i class="far fa-calendar"></i>
-                    ${new Date(record.created_at).toLocaleString()}
+                    ${convertToBeijingTime(record.created_at).toLocaleString()}
                 </div>
             </div>
         `).join('');
@@ -1332,6 +1338,6 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(checkHistoryPanel, {
             attributes: true
         });
-    });
+});
 </script>
 

@@ -1312,7 +1312,7 @@
     });
 
     function exportReport() {
-        const now = new Date();
+        const now = convertToBeijingTime(new Date());
         const dateStr = now.toLocaleDateString('zh-CN');
         const timeStr = now.toLocaleTimeString('zh-CN');
         const reportId = `AI-${now.getTime()}`;
@@ -1613,6 +1613,12 @@
         successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
         document.body.appendChild(successDiv);
         setTimeout(() => successDiv.remove(), 3000);
+    }
+
+    // 添加时区转换函数
+    function convertToBeijingTime(date) {
+        const utcDate = new Date(date);
+        return new Date(utcDate.getTime() + (8 * 60 * 60 * 1000));
     }
     </script>
 </body>
