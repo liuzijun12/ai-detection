@@ -602,30 +602,7 @@ def save_detection():
         print(f"Error saving detection: {str(e)}")  # 调试信息
         return jsonify({"error": str(e)}), 500
 
-# 添加静态文件服务路由
-@app.route('/staticImage/<path:filename>')
-def serve_static_image(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
 
-@app.route("/case/<int:case_id>")
-@login_required
-def get_case(case_id):
-    try:
-        # 获取当前用户的病例
-        user_id = session.get('user_id')
-        case = Case.query.filter_by(id=case_id, user_id=user_id).first()
-        
-        if not case:
-            return jsonify({"error": "病例不存在或无权访问"}), 404
-
-        return jsonify({
-            "id": case.id,
-            "created_at": case.created_at.isoformat(),
-            "description": case.description,
-            "left_eye_image": case.left_eye_image,
-            "right_eye_image": case.right_eye_image,
-            "left_eye_result": case.left_eye_result,
-            "right_eye_result": case.right_eye_result
         })
     except Exception as e:
         print(f"Error getting case: {str(e)}")
